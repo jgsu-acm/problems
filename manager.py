@@ -175,9 +175,9 @@ if __name__ == "__main__":
     subparser = parser.add_subparsers(title="command")
 
     parser_create = subparser.add_parser("c", help="创建题目")
-    parser_create.add_argument("problem", nargs="+")
+    parser_create.add_argument("problem", nargs="+", help="要创建的题目，支持区间")
     group = parser_create.add_mutually_exclusive_group()
-    group.add_argument("--get", "-g", nargs="*", metavar="SOURCE", help="从洛谷获取题目")
+    group.add_argument("--get", "-g", nargs="*", metavar="SOURCE", help="从洛谷获取题面，支持区间，题目数量及且顺序要与要创建的题目相同")
     group.add_argument("--objective", "-o", action="store_true", help="客观题")
     parser_create.add_argument("--python", "-p", action="store_true", help="使用 python 生成器")
     parser_create.add_argument("--nogen", "-ng", action="store_true", help="不生成生成器模板")
@@ -185,7 +185,7 @@ if __name__ == "__main__":
     parser_create.set_defaults(func=create)
 
     parser_generate = subparser.add_parser("g", help="生成测试数据")
-    parser_generate.add_argument("problem", nargs="+")
+    parser_generate.add_argument("problem", nargs="+", help="要生成数据的题目，支持区间")
     parser_generate.set_defaults(func=generate)
 
     if len(sys.argv) < 2:

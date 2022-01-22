@@ -13,7 +13,7 @@ command:
     c         创建题目
     g         生成测试数据
 ```
-    
+
 ### 子模块
 
 #### 创建题目
@@ -24,12 +24,12 @@ command:
 usage: manager.py c [-h] [--get [SOURCE ...] | --objective] [--python] [--nogen] [--nostd] problem [problem ...]
 
 positional arguments:
-  problem
+  problem               要创建的题目，支持区间
 
 optional arguments:
   -h, --help            show this help message and exit
   --get [SOURCE ...], -g [SOURCE ...]
-                        从洛谷获取题目
+                        从洛谷获取题面，支持区间，题目数量及且顺序要与要创建的题目相同
   --objective, -o       客观题
   --python, -p          使用 python 生成器
   --nogen, -ng          不生成生成器模板
@@ -46,7 +46,7 @@ optional arguments:
 usage: manager.py g [-h] problem [problem ...]
 
 positional arguments:
-  problem
+  problem     要生成数据的题目，支持区间
 
 optional arguments:
   -h, --help  show this help message and exit
