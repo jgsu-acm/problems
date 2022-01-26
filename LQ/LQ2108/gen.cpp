@@ -27,15 +27,10 @@ int main(int argc, char const* argv[])
         v.push_back(0);
         v.push_back(sum);
         sort(v.begin(), v.end());
-        int cnt=0, S=0;
-        for(int i=1;i<v.size();i++)
-        {
-            int tmp = v[i]-v[i-1];
-            fout<<tmp<<' ';
-            S += tmp;
-            ++cnt;
-        }
-        cerr<<cnt<<' '<<S<<endl;
+        vector<int> v2;
+        for(int i=1;i<v.size();i++) v2.push_back(v[i]-v[i-1]);
+        sort(v2.begin(), v2.end());
+        for(auto i : v2) fout<<i<<' ';
         // ==============================
         fout.close();
     }
