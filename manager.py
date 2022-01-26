@@ -11,8 +11,6 @@ from bs4 import BeautifulSoup
 
 PATH_GENTP_CPP = Path("template/gen_tp.cpp")
 PATH_GENTP_PY = Path("template/gen_tp.py")
-PATH_OBJTP = Path("template/obj_tp.yaml")
-PATH_OBJCFGTP = Path("template/obj_cfg_tp.yaml")
 PATH_PROTP = Path("template/pro_tp.md")
 PATH_STDTP = Path("template/std_tp.cpp")
 PATH_TMP_FOLDER = Path("tmp")
@@ -106,7 +104,7 @@ def create(args):
             if opt != 'Y':
                 continue
         os.makedirs(path_pro)
-        if args.objective:
+        if args.submitans:
             continue
         if not args.nogen:
             if args.python:
@@ -122,10 +120,6 @@ def create(args):
             raise Exception("题目数量不匹配")
         for (problem, source) in zip(problems, sources):
             get_problem(source, problem)
-    elif args.objective:
-        for problem in problems:
-            shutil.copy(PATH_OBJTP, get_pro_path(problem) / f"{problem}.yaml")
-            shutil.copy(PATH_OBJCFGTP, get_pro_path(problem) / "config.yaml")
     else:
         for problem in problems:
             shutil.copy(PATH_PROTP, get_pro_path(problem) / f"{problem}.md")
@@ -178,7 +172,7 @@ if __name__ == "__main__":
     parser_create.add_argument("problem", nargs="+", help="要创建的题目，支持区间")
     group = parser_create.add_mutually_exclusive_group()
     group.add_argument("--get", "-g", nargs="*", metavar="SOURCE", help="从洛谷获取题面，支持区间，题目数量及且顺序要与要创建的题目相同")
-    group.add_argument("--objective", "-o", action="store_true", help="客观题")
+    group.add_argument("--submitans", "-s", action="store_true", help="提交答案题")
     parser_create.add_argument("--python", "-p", action="store_true", help="使用 python 生成器")
     parser_create.add_argument("--nogen", "-ng", action="store_true", help="不生成生成器模板")
     parser_create.add_argument("--nostd", "-ns", action="store_true", help="不生成标程模板")
