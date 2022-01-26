@@ -12,6 +12,7 @@ from bs4 import BeautifulSoup
 PATH_GENTP_CPP = Path("template/gen_tp.cpp")
 PATH_GENTP_PY = Path("template/gen_tp.py")
 PATH_PROTP = Path("template/pro_tp.md")
+PATH_SAPROTP = Path("template/pro_sa_tp.md")
 PATH_STDTP = Path("template/std_tp.cpp")
 PATH_TMP_FOLDER = Path("tmp")
 
@@ -120,6 +121,9 @@ def create(args):
             raise Exception("题目数量不匹配")
         for (problem, source) in zip(problems, sources):
             get_problem(source, problem)
+    elif args.submitans:
+        for problem in problems:
+            shutil.copy(PATH_SAPROTP, get_pro_path(problem) / f"{problem}.md")
     else:
         for problem in problems:
             shutil.copy(PATH_PROTP, get_pro_path(problem) / f"{problem}.md")
