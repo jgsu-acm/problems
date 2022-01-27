@@ -25,6 +25,8 @@ HEADERS = {
     "Connection": "keep-alive"
 }
 
+logging.basicConfig(level = logging.INFO,format = "[%(levelname)s] %(message)s")
+
 
 def get_problem(_id: str, name: str):
     with open(get_pro_path(name) / f"{name}.md", "w", encoding="UTF-8") as f:
@@ -157,7 +159,7 @@ def generate(args):
             os.system(f"cd {PATH_TMP_FOLDER} && python gen.py")
         else:
             raise Exception("生成器不存在")
-        logger.info("所有输出样例已生成")
+        logger.info("所有输入样例已生成")
 
         logger.info("开始生成输出样例")
         files_input = PATH_TMP_FOLDER.glob("*.in")
