@@ -1,99 +1,58 @@
 #include <iostream>
 #include <ctime>
-#include <cstdio>
-#include <cctype>
-namespace FastIO
+using namespace std;
+clock_t c1;
+inline void exit()
 {
-    char buf[1 << 21], buf2[1 << 21], a[20], *p1 = buf, *p2 = buf;
-    int p, p3 = -1;
-    inline int getc()
-    {
-        return p1 == p2 && (p2 = (p1 = buf) + fread(buf, 1, 1 << 21, stdin), p1 == p2) ? EOF : *p1++;
-    }
-    inline int read()
-    {
-        int ret = 0, f = 0;
-        char ch = getc();
-        while (!isdigit(ch))
-        {
-            if (ch == '-')
-                f = 1;
-            ch = getc();
-        }
-        while (isdigit(ch))
-        {
-            ret = ret * 10 + ch - 48;
-            ch = getc();
-        }
-        return f ? -ret : ret;
-    }
-    inline void flush()
-    {
-        fwrite(buf2, 1, p3 + 1, stdout), p3 = -1;
-    }
-    inline void print(int x)
-    {
-        if (p3 > 1 << 20)
-            flush();
-        if (x < 0)
-            buf2[++p3] = 45, x = -x;
-        do
-        {
-            a[++p] = x % 10 + 48;
-        } while (x /= 10);
-        do
-        {
-            buf2[++p3] = a[p];
-        } while (--p);
-        buf2[++p3] = '\n';
-    }
+#ifdef LOCAL
+    cerr << "Time Used:" << clock() - c1 << "ms" << endl;
+#endif
+    exit(0);
 }
-#define read() FastIO::read()
-#define print(x) FastIO::print(x)
-//======================================
-#include <climits>
-#include <vector>
-typedef std::pair<int,int> pii;
-int a[201];
-pii mem[201][201];
-bool b[201][201];
-int sum(int l, int r)
+//==========================================
+const int maxn = 205;
+const int INF = 0x3f3f3f3f;
+int a[maxn], pre[maxn];
+int dp1[maxn][maxn], dp2[maxn][maxn];
+signed main(signed argc, char const *argv[])
 {
-    int s=0;
-    for(int i=l;i<=r;i++)
-        s+=a[i];
-    return s;
-}
-pii dfs(int l, int r)
-{
-    if(l==r) return mem[l][l]=pii(0,0);
-    if(b[l][r]) return mem[l][r];
-    int min=INT_MAX,max=INT_MIN;
-    for(int k=l;k<r;k++)
-    {
-        min=std::min(min,dfs(l,k).first+dfs(k+1,r).first+sum(l,r));
-        max=std::max(max,dfs(l,k).second+dfs(k+1,r).second+sum(l,r));
-    }
-    b[l][r]=true;
-    return mem[l][r]=pii(min,max);
-}
-int main(int argc, char const *argv[])
-{
-    clock_t c1 = clock();
+#ifdef LOCAL
+    freopen("in.in", "r", stdin);
+    freopen("out.out", "w", stdout);
+#endif
+    c1 = clock();
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
     //======================================
-    int n = read();
-    for(int i=1;i<=n;i++)
-        a[i]=a[i+n]=read();
-    //答案为max(dp[1][n],dp[2][n+1]...,dp[n][n+n-1])
-    int min=INT_MAX,max=INT_MIN;
+    int n;
+    cin>>n;
     for(int i=1;i<=n;i++)
     {
-        min=std::min(min,dfs(i,i+n-1).first);
-        max=std::max(max,dfs(i,i+n-1).second);
+        cin>>a[i];
+        a[i+n]=a[i];
     }
-    print(min);print(max);
+    for(int i=1;i<2*n;i++)
+        pre[i]=pre[i-1]+a[i];
+    for(int l=1;l<n;l++)
+    {
+        for(int i=1,j=i+l;j<2*n;i++,j++)
+        {
+            dp1[i][j]=-INF;
+            dp2[i][j]=INF;
+            for(int k=i;k<j;k++)
+            {
+                dp1[i][j]=max(dp1[i][j], dp1[i][k]+dp1[k+1][j]+pre[j]-pre[i-1]);
+                dp2[i][j]=min(dp2[i][j], dp2[i][k]+dp2[k+1][j]+pre[j]-pre[i-1]);
+            }
+        }
+    }
+    int mx=-INF, mn=INF;
+    for(int i=1;i<=n;i++)
+    {
+        mx=max(mx, dp1[i][i+n-1]);
+        mn=min(mn, dp2[i][i+n-1]);
+    }
+    cout<<mn<<endl<<mx<<endl;
     //======================================
-    FastIO::flush();
-    std::cerr << clock() - c1 << std::endl;
-    return 0;
+    exit();
 }
