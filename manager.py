@@ -9,6 +9,7 @@ from pathlib import Path
 import requests
 from bs4 import BeautifulSoup
 
+EDITOR = "code"
 PATH_GENTP_CPP = Path("template/gen_tp.cpp")
 PATH_GENTP_PY = Path("template/gen_tp.py")
 PATH_PROTP = Path("template/pro_tp.md")
@@ -131,6 +132,8 @@ def create(args):
     else:
         for problem in problems:
             shutil.copy(PATH_PROTP, get_pro_path(problem) / f"{problem}.md")
+    if len(problems) == 1:
+        os.system(f"{EDITOR} {get_pro_path(problems[0]) / f'{problems[0]}.md'}")
 
 
 def generate(args):
