@@ -16,8 +16,12 @@ int main(int argc, char const* argv[])
     {
         ofstream fout(to_string(t)+".in");
         // ==============================
+        int len;
+        if(t<=3) len = rnd(1,10)(egn);
+        else if(t<=6) len = rnd(11,100)(egn);
+        else if(t<=8) len = rnd(101,1000)(egn);
+        else len = rnd(1001,10000)(egn);
         string s2;
-        int len = rnd(1,10)(egn);
         for(int i=0;i<len;i++) s2.push_back((char)(rnd('A','Z')(egn)));
         string s1;
         while(s1.length()+s2.length()<=2e6)
