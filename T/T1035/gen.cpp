@@ -20,7 +20,7 @@ int main(int argc, char const* argv[])
         int len = rnd(1,10)(egn);
         for(int i=0;i<len;i++) s2.push_back((char)(rnd('A','Z')(egn)));
         string s1;
-        while(s1.length()+s2.length()<=1e6)
+        while(s1.length()+s2.length()<=2e6)
         {
             int p = rnd(1,100)(egn);
             if(p<=10) s1.push_back((char)(rnd('A','Z')(egn)));

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
-const int maxn = 1e6 + 5;
+const int maxn = 2e6 + 5;
 int nxt[maxn];
 int main()
 {
