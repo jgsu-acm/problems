@@ -16,7 +16,7 @@ $$C^m_n=\frac{n!}{m!(n-m)!}$$
 
 # 输出格式
 
-共 $t$ 行，每行一个整数代表所有的 $0 \leq i\ leq n,~0 \leq j \leq \min(i,m)$ 中有多少对 $(i,j)$ 满足 $k|C^j_i$。
+共 $t$ 行，每行一个整数代表所有的 $0 \leq i \leq n,~0 \leq j \leq \min(i,m)$ 中有多少对 $(i,j)$ 满足 $k|C^j_i$。
 
 # 输入输出样例
 
