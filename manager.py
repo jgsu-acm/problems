@@ -90,6 +90,8 @@ def process_problems(raw: list[str]):
         elif len(t) == 2:
             lb = int(re.search(r"\d+$", t[0]).group())
             rb = int(re.search(r"\d+$", t[1]).group())
+            if rb < lb:
+                raise Exception("题目区间错误")
             lpre = t[0][:-len(str(lb))]
             if lpre != t[1][:-len(str(rb))]:
                 raise Exception("题目 ID 前缀不相同")
