@@ -21,10 +21,10 @@ command:
 <details>
 
 ```bash
-usage: manager.py c [-h] [--get [SOURCE ...] | --objective] [--python] [--nogen] [--nostd] problem [problem ...]
+usage: manager.py c [-h] [--get [SOURCE ...] | --objective] [--python] [--nogen] [--nostd] creator [creator ...]
 
 positional arguments:
-  problem               要创建的题目，支持区间
+  creator               要创建的题目，支持区间
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -43,10 +43,10 @@ optional arguments:
 <details>
   
 ```bash
-usage: manager.py g [-h] problem [problem ...]
+usage: manager.py g [-h] creator [creator ...]
 
 positional arguments:
-  problem     要生成数据的题目，支持区间
+  creator     要生成数据的题目，支持区间
 
 optional arguments:
   -h, --help  show this help message and exit
