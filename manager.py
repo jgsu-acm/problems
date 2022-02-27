@@ -1,12 +1,11 @@
-import argparse
 import logging
 import os
 import re
 import shutil
-import sys
 from pathlib import Path
 from typing import IO
 
+import click
 import requests
 from bs4 import BeautifulSoup
 from more_itertools import first_true
@@ -113,8 +112,15 @@ def process_problems(raw: list[str]):
     return problems
 
 
-def create(args):
-    problems = process_problems(args.problem)
+@click.command("c", help="创建题目")
+@click.argument("problems", nargs=-1)
+@click.option("--get", "-g", "sources", multiple=True, help="从洛谷获取题面，支持区间，题目数量及且顺序要与要创建的题目相同")
+@click.option("--submitans", "-s", is_flag=True, help="提交答案题")
+@click.option("--python", "-p", is_flag=True, help="使用 python 生成器")
+@click.option("--nogen", "-ng", is_flag=True, help="不生成生成器模板")
+@click.option("--nostd", "-ns", is_flag=True, help="不生成标程模板")
+def create(problems: list[str], sources: list[str], submitans: bool, python: bool, nogen: bool, nostd: bool):
+    problems = process_problems(problems)
     for problem in problems:
         path_pro = get_pro_path(problem)
         if path_pro.exists():
@@ -122,23 +128,23 @@ def create(args):
             if opt != 'Y':
                 continue
         os.makedirs(path_pro)
-        if args.submitans:
+        if submitans:
             continue
-        if not args.nogen:
-            if args.python:
+        if not nogen:
+            if python:
                 shutil.copy(PATH_GENTP_PY, path_pro / "gen.py")
             else:
                 shutil.copy(PATH_GENTP_CPP, path_pro / "gen.cpp")
-        if not args.nostd:
+        if not nostd:
             shutil.copy(PATH_STDTP, path_pro / "std.cpp")
 
-    if args.get:
-        sources = process_problems(args.get)
+    if sources:
+        sources = process_problems(sources)
         if len(problems) != len(sources):
             raise Exception("题目数量不匹配")
         for (problem, source) in zip(problems, sources):
             get_problem(source, problem)
-    elif args.submitans:
+    elif submitans:
         for problem in problems:
             shutil.copy(PATH_SAPROTP, get_pro_path(problem) / f"{problem}.md")
             shutil.copy(PATH_SACFG_TP, get_pro_path(problem) / "config.yaml")
@@ -149,9 +155,11 @@ def create(args):
         os.system(f"{EDITOR} {get_pro_path(problems[0]) / f'{problems[0]}.md'}")
 
 
-def generate(args):
-    logger = logging.getLogger("generate")
-    problems = process_problems(args.problem)
+@click.command("g", help="生成测试数据")
+@click.argument("problems", nargs=-1)
+def generate(problems: list[str]):
+    logger = logging.getLogger("生成")
+    problems = process_problems(problems)
     for problem in problems:
         for file in PATH_TMP_FOLDER.iterdir():
             os.remove(file)
@@ -188,26 +196,12 @@ def generate(args):
         logger.info("测试数据打包完成")
 
 
+@click.group()
+def main():
+    pass
+
+
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    subparser = parser.add_subparsers(title="command")
-
-    parser_create = subparser.add_parser("c", help="创建题目")
-    parser_create.add_argument("problem", nargs="+", help="要创建的题目，支持区间")
-    group = parser_create.add_mutually_exclusive_group()
-    group.add_argument("--get", "-g", nargs="*", metavar="SOURCE", help="从洛谷获取题面，支持区间，题目数量及且顺序要与要创建的题目相同")
-    group.add_argument("--submitans", "-s", action="store_true", help="提交答案题")
-    parser_create.add_argument("--python", "-p", action="store_true", help="使用 python 生成器")
-    parser_create.add_argument("--nogen", "-ng", action="store_true", help="不生成生成器模板")
-    parser_create.add_argument("--nostd", "-ns", action="store_true", help="不生成标程模板")
-    parser_create.set_defaults(func=create)
-
-    parser_generate = subparser.add_parser("g", help="生成测试数据")
-    parser_generate.add_argument("problem", nargs="+", help="要生成数据的题目，支持区间")
-    parser_generate.set_defaults(func=generate)
-
-    if len(sys.argv) < 2:
-        parser.print_help()
-    else:
-        arguments = parser.parse_args()
-        arguments.func(arguments)
+    main.add_command(create)
+    main.add_command(generate)
+    main()
