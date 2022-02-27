@@ -5,9 +5,13 @@ import re
 import shutil
 import sys
 from pathlib import Path
+from typing import IO
 
 import requests
 from bs4 import BeautifulSoup
+from more_itertools import first_true
+
+logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 
 EDITOR = "code"
 PATH_GENTP_CPP = Path("template/gen_tp.cpp")
@@ -26,7 +30,43 @@ HEADERS = {
     "Connection": "keep-alive"
 }
 
-logging.basicConfig(level = logging.INFO,format = "[%(levelname)s] %(message)s")
+RE_TABLE_ALIGN = r"-(?=\040\|)"
+RE_EXAMPLE_CASE_NOTICE = r"【.*(?P<a>\d).*样例.*】|【.*样例.*(?P<b>\d).*】|#+.*样例.*(?P<c>\d).*|#+.*(?P<d>\d).*样例.*"
+RE_CASES_RANGE = r"【数据.*】|#+\s数据.*"
+RE_EXAMPLE_INPUT_CASE = r"输入样例 #\d"
+
+
+def write_normal(f: IO, article: BeautifulSoup, title: str):
+    h = article.find(lambda t: t.string == title)
+    if h:
+        f.write(f"# {title}\n\n" + h.find_next("div").string.strip('\n') + "\n\n")
+
+
+def write_example(f: IO, article: BeautifulSoup):
+    f.write("# 输入输出样例\n\n")
+    cnt = 0
+    cursor = article.find(lambda tag: tag.string == "输入输出样例").find_next("h3")
+    while cursor and re.match(RE_EXAMPLE_INPUT_CASE, cursor.string):
+        cnt += 1
+        f.write(f"```input{cnt}\n")
+        f.write(cursor.find_next("code").string.strip('\n'))
+        f.write("\n```\n\n")
+        cursor = cursor.find_next("code")
+
+        f.write(f"```output{cnt}\n")
+        f.write(cursor.find_next("code").string.strip('\n'))
+        f.write("\n```\n\n")
+        cursor = cursor.find_next("h3").find_next("h3")
+
+
+def write_notice(f: IO, article: BeautifulSoup):
+    notice: BeautifulSoup = article.find(lambda tag: str(tag.string).find("说明") != -1)
+    f.write("# 说明/提示\n\n")
+    s = notice.find_next("div").string.strip('\n')
+    s = re.sub(RE_TABLE_ALIGN, ":", s)
+    s = re.sub(RE_EXAMPLE_CASE_NOTICE, lambda m: f"【样例解释 #{first_true(m.groups())}】", s)
+    s = re.sub(RE_CASES_RANGE, "【数据规模】", s)
+    f.write(s + '\n')
 
 
 def get_problem(_id: str, name: str):
@@ -35,44 +75,15 @@ def get_problem(_id: str, name: str):
             requests.get(f"https://www.luogu.com.cn/problem/{_id}", headers=HEADERS).content, "lxml"
         ).article
 
-        def write_next_div(title: str):
-            h = article.find(lambda t: t.string == title)
-            if h:
-                f.write(f"# {title}\n\n" + h.find_next("div").string + "\n\n")
-
-        write_next_div("题目背景")
-        write_next_div("题目描述")
-        write_next_div("输入格式")
-        write_next_div("输出格式")
-
-        example: BeautifulSoup = article.find(lambda tag: tag.string == "输入输出样例")
-        f.write("# 输入输出样例\n\n")
-        cnt = 0
-        cursor = example.find_next("h3")
-        while cursor and re.match(r"输入样例 #\d", cursor.string):
-            cnt += 1
-            f.write(f"```input{cnt}\n")
-            f.write(cursor.find_next("code").string)
-            f.write("\n```\n\n")
-            cursor = cursor.find_next("code")
-
-            f.write(f"```output{cnt}\n")
-            f.write(cursor.find_next("code").string)
-            f.write("\n```\n\n")
-            cursor = cursor.find_next("h3").find_next("h3")
-
-        note: BeautifulSoup = article.find(lambda tag: str(tag.string).find("说明") != -1)
-        f.write("# 说明/提示\n\n")
-        s = note.find_next("div").string
-        s = re.sub(r"-(?=\040\|)", ":", s)
-        s = re.sub(r"【.*(?P<f>\d).*样例.*】|【.*样例.*(?P<s>\d).*】", lambda m: f"【样例解释 #{m.group('f') or m.group('s')}】",
-                   s)
-        s = re.sub(r"【数据.*】", "【数据规模】", s)
-        s = s.replace("\n\n\n", "\n\n")
-        f.write(s)
+        write_normal(f, article, "题目背景")
+        write_normal(f, article, "题目描述")
+        write_normal(f, article, "输入格式")
+        write_normal(f, article, "输出格式")
+        write_example(f, article)
+        write_notice(f, article)
 
 
-def compile(path: Path):
+def compile_cpp(path: Path):
     if os.system(f"g++ {path} -o {PATH_TMP_FOLDER / path.stem} -O2 -std=c++17"):
         raise Exception(f"{path.name} 编译失败")
 
@@ -148,7 +159,7 @@ def generate(args):
         path_std = path_pro / "std.cpp"
         if path_std.exists():
             logger.info(f"编译 {path_std.name}")
-            compile(path_std)
+            compile_cpp(path_std)
         else:
             raise Exception("标程不存在")
 
@@ -157,7 +168,7 @@ def generate(args):
         path_gen_py = path_pro / "gen.py"
         if path_gen_cpp.exists():
             logger.info(f"编译 {path_gen_cpp.name}")
-            compile(path_gen_cpp)
+            compile_cpp(path_gen_cpp)
             os.system(f"cd {PATH_TMP_FOLDER} && gen")
         elif path_gen_py.exists():
             shutil.copy(path_gen_py, PATH_TMP_FOLDER)
