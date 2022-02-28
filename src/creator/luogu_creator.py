@@ -1,7 +1,6 @@
 import re
 
 import requests
-from more_itertools import first_true
 
 from src.creator.creator import Creator
 
@@ -30,7 +29,7 @@ class LuoguProblemCreator(Creator):
     @staticmethod
     def __process_hint(hint: str):
         hint = re.sub(RE_TABLE_ALIGN, ":", hint)  # 单元格居中
-        hint = re.sub(RE_EXAMPLE_CASE_NOTICE, lambda m: f"【样例解释 #{first_true(m.groups())}】", hint)
+        hint = re.sub(RE_EXAMPLE_CASE_NOTICE, lambda m: f"【样例解释 #{next(filter(bool, m.groups()))}】", hint)
         hint = re.sub(RE_CASES_RANGE, "【数据规模】", hint)
         return hint
 
