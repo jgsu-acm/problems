@@ -1,16 +1,18 @@
 import logging
+import os
 import re
 import shutil
-from abc import ABC, abstractmethod
+from collections import defaultdict
 from pathlib import Path
 
 PATH_GENTP_CPP = Path("template/gen_tp.cpp")
 PATH_GENTP_PY = Path("template/gen_tp.py")
 PATH_STDTP = Path("template/std_tp.cpp")
 
+EDITOR = "code"
 
-class Creator(ABC):
-    @abstractmethod
+
+class Creator():
     def _get(self):
         pass
 
@@ -23,14 +25,7 @@ class Creator(ABC):
         self.__nostd = nostd
         self.__use_python = use_python
 
-        self._content = {
-            "background": "",
-            "description": "",
-            "input_format": "",
-            "output_format": "",
-            "samples": "",
-            "hint": ""
-        }
+        self._content = defaultdict(str)
         self.__path = Path(f"problems/{re.match(r'[A-Z]+', pid).group()}/{pid}")
         self.__md_path = self.__path / f"{self.__pid}.md"
         self.__gen_path = self.__path / ("gen.py" if use_python else "gen.cpp")
@@ -50,10 +45,13 @@ class Creator(ABC):
         fp.close()
 
     def create(self):
-        self._logger.info("开始创建")
-        self._get()
+        if self.__path.exists():
+            if input(f"题目 {self.__pid} 已经存在了，继续(Y)还是跳过(Not Y)") != 'Y':
+                self.__logger.info("跳过")
+                return self
         self.__path.mkdir(parents=True)
         self._logger.info("创建题面")
+        self._get()
         self.__write()
         if self.__is_sa:
             self._logger.info("创建配置文件")
@@ -66,14 +64,8 @@ class Creator(ABC):
         if not self.__nostd:
             self._logger.info("创建标程")
             shutil.copy(PATH_STDTP, self.__std_path)
+        return self
 
-    def exists(self):
-        return self.__path.exists()
-
-    @property
-    def pid(self):
-        return self.__pid
-
-    @property
-    def md_path(self):
-        return self.__md_path
+    def open(self):
+        os.system(f"{EDITOR} {self.__md_path}")
+        return self
