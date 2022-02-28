@@ -35,7 +35,7 @@ def process_pids(raw: list[str]):
 @click.command("c", help="创建题目")
 @click.argument("pids", nargs=-1, required=True)
 @click.option("--source", "-s", type=click.Choice(["luogu"]), default="luogu", help="从何处获取题目")
-@click.option("--spids", "-i", multiple=True, help="获取哪些题面，支持区间，题目数量及顺序要与要创建的题目相同")
+@click.option("--spids", "-i", multiple=True, metavar="SOURCEIDS", help="获取哪些题面，支持区间，题目数量及顺序要与要创建的题目相同")
 @click.option("--submitans", "-sa", "is_sa", is_flag=True, help="提交答案题")
 @click.option("--nogen", "-ng", is_flag=True, help="不生成生成器模板")
 @click.option("--nostd", "-ns", is_flag=True, help="不生成标程模板")
