@@ -33,16 +33,17 @@ class Creator():
         self.__std_path = self.__path / "std.cpp"
 
     def __write(self):
-        fp = open(self.md_path, "w", encoding="UTF-8")
-        if self._content["background"]:
-            fp.write("# 题目背景" + "\n\n" + self._content["background"] + "\n\n")
-        fp.write("# 题目描述" + "\n\n" + self._content["description"] + "\n\n")
-        if not self.__is_sa:
-            fp.write("# 输入格式" + "\n\n" + self._content["input_format"] + "\n\n")
-            fp.write("# 输出格式" + "\n\n" + self._content["output_format"] + "\n\n")
-            fp.write("# 输入输出样例" + "\n\n" + self._content["samples"] + "\n\n")
-            fp.write("# 说明/提示" + "\n\n" + self._content["hint"] + "\n")
-        fp.close()
+        for (k, v) in self._content:
+            self._content[k] = v.strip()
+        with open(self.md_path, "w", encoding="UTF-8") as fp:
+            if self._content["background"]:
+                fp.write("# 题目背景" + "\n\n" + self._content["background"] + "\n\n")
+            fp.write("# 题目描述" + "\n\n" + self._content["description"] + "\n\n")
+            if not self.__is_sa:
+                fp.write("# 输入格式" + "\n\n" + self._content["input_format"] + "\n\n")
+                fp.write("# 输出格式" + "\n\n" + self._content["output_format"] + "\n\n")
+                fp.write("# 输入输出样例" + "\n\n" + self._content["samples"] + "\n\n")
+                fp.write("# 说明/提示" + "\n\n" + self._content["hint"] + "\n")
 
     def create(self):
         if self.__path.exists():

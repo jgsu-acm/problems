@@ -25,20 +25,22 @@ class LuoguProblemCreator(Creator):
             sample = samples[i]
             s += f"```input{i + 1}\n{sample[0]}\n```\n\n"
             s += f"```output{i + 1}\n{sample[1]}\n```\n\n"
-        return s.strip('\n')
+        return s
 
     @staticmethod
     def __process_hint(hint: str):
         hint = re.sub(RE_TABLE_ALIGN, ":", hint)  # 单元格居中
         hint = re.sub(RE_EXAMPLE_CASE_NOTICE, lambda m: f"【样例解释 #{first_true(m.groups())}】", hint)
         hint = re.sub(RE_CASES_RANGE, "【数据规模】", hint)
-        return hint.strip('\n')
+        return hint
 
     def _get(self):
         d = requests.get(URL.format(id=self._spid), headers=HEADERS).json()["currentData"]["problem"]
-        self._content["background"] = d["background"].strip('\n')
-        self._content["description"] = d["description"].strip('\n')
-        self._content["input_format"] = d["inputFormat"].strip('\n')
-        self._content["output_format"] = d["outputFormat"].strip('\n')
-        self._content["samples"] = self.__process_samples(d["samples"])
-        self._content["hint"] = self.__process_hint(d["hint"])
+        self._content = {
+            "background": d["background"],
+            "description": d["description"],
+            "input_format": d["input_format"],
+            "output_format": d["output_format"],
+            "samples": self.__process_samples(d["samples"]),
+            "hint": self.__process_hint(d["hint"])
+        }
