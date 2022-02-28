@@ -84,7 +84,7 @@ def generate(pids: list[str]):
 @click.group()
 @click.option("--level", "-l", type=click.Choice(["ERROR", "WARNING", "INFO", "DEBUG"]), default="INFO", help="日志级别")
 def main(level: str):
-    logging.basicConfig(level=level, format="[%(levelname)s] %(message)s")
+    logging.basicConfig(level=level, format="[%(levelname)s] <%(name)s> %(message)s")
 
 
 if __name__ == "__main__":
