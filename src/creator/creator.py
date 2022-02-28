@@ -12,7 +12,7 @@ PATH_STDTP = Path("template/std_tp.cpp")
 EDITOR = "code"
 
 
-class Creator():
+class Creator:
     def _get(self):
         pass
 
@@ -33,9 +33,9 @@ class Creator():
         self.__std_path = self.__path / "std.cpp"
 
     def __write(self):
-        for (k, v) in self._content:
+        for (k, v) in self._content.items():
             self._content[k] = v.strip()
-        with open(self.md_path, "w", encoding="UTF-8") as fp:
+        with open(self.__md_path, "w", encoding="UTF-8") as fp:
             if self._content["background"]:
                 fp.write("# 题目背景" + "\n\n" + self._content["background"] + "\n\n")
             fp.write("# 题目描述" + "\n\n" + self._content["description"] + "\n\n")
@@ -46,11 +46,11 @@ class Creator():
                 fp.write("# 说明/提示" + "\n\n" + self._content["hint"] + "\n")
 
     def create(self):
-        if self.__path.exists():
+        if self.__md_path.exists():
             if input(f"题目 {self.__pid} 已经存在了，继续(Y)还是跳过(Not Y)") != 'Y':
-                self.__logger.info("跳过")
+                self._logger.info("跳过")
                 return self
-        self.__path.mkdir(parents=True)
+        self.__path.mkdir(parents=True, exist_ok=True)
         self._logger.info("创建题面")
         self._get()
         self.__write()

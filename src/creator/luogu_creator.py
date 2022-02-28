@@ -39,8 +39,8 @@ class LuoguProblemCreator(Creator):
         self._content = {
             "background": d["background"],
             "description": d["description"],
-            "input_format": d["input_format"],
-            "output_format": d["output_format"],
+            "input_format": d["inputFormat"],
+            "output_format": d["outputFormat"],
             "samples": self.__process_samples(d["samples"]),
             "hint": self.__process_hint(d["hint"])
         }
