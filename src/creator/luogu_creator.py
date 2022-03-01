@@ -5,7 +5,7 @@ import requests
 from src.creator.creator import Creator
 
 RE_TABLE_ALIGN = r"-(?=\040\|)"
-RE_EXAMPLE_CASE_NOTICE = r"【.*(?P<a>\d).*样例.*】|【.*样例.*(?P<b>\d).*】|#+.*样例.*(?P<c>\d).*|#+.*(?P<d>\d).*样例.*"
+RE_EXAMPLE_CASE_NOTICE = r"【.*(\d).*样例.*】|【.*样例.*(\d).*】|#+.*样例.*(\d).*|#+.*(\d).*样例.*"
 RE_CASES_RANGE = r"【数据.*】|#+\s数据.*"
 RE_EXAMPLE_INPUT_CASE = r"输入样例 #\d"
 
