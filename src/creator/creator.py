@@ -13,9 +13,6 @@ EDITOR = "code"
 
 
 class Creator:
-    def _get(self):
-        pass
-
     def __init__(self, pid: str, spid: str, is_sa: bool, nogen: bool, nostd: bool, use_python: bool):
         self._logger = logging.getLogger(f"题目({pid})")
         self.__pid = pid
@@ -32,9 +29,15 @@ class Creator:
         self.__gen_tp_path = PATH_GENTP_PY if use_python else PATH_GENTP_CPP
         self.__std_path = self.__path / "std.cpp"
 
+    def _get(self):
+        pass
+
+    def _format(self):
+        for k, v in self._content.items():
+            v = v.strip()
+            self._content[k] = v
+
     def __write(self):
-        for (k, v) in self._content.items():
-            self._content[k] = v.strip()
         with open(self.__md_path, "w", encoding="UTF-8") as fp:
             if self._content["background"]:
                 fp.write("# 题目背景" + "\n\n" + self._content["background"] + "\n\n")
