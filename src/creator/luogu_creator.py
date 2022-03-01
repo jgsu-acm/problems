@@ -34,6 +34,7 @@ class LuoguProblemCreator(Creator):
         return hint
 
     def _get(self):
+        self._logger.info(f"自洛谷 {self._spid} 获取题面")
         d = requests.get(URL.format(id=self._spid), headers=HEADERS).json()["currentData"]["problem"]
         self._content = {
             "background": d["background"],
