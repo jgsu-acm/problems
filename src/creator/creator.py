@@ -56,6 +56,7 @@ class Creator:
         self.__path.mkdir(parents=True, exist_ok=True)
         self._logger.info("创建题面")
         self._get()
+        self._format()
         self.__write()
         if self.__is_sa:
             self._logger.info("创建配置文件")
