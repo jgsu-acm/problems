@@ -44,8 +44,9 @@ class Creator:
         with open(self.__md_path, "w", encoding="UTF-8") as fp:
             if self._content["background"]:
                 fp.write("# 题目背景" + "\n\n" + self._content["background"] + "\n\n")
-            fp.write("# 题目描述" + "\n\n" + self._content["description"] + "\n\n")
+            fp.write("# 题目描述" + "\n\n" + self._content["description"])
             if not self.__is_sa:
+                fp.write("\n\n")
                 fp.write("# 输入格式" + "\n\n" + self._content["input_format"] + "\n\n")
                 fp.write("# 输出格式" + "\n\n" + self._content["output_format"] + "\n\n")
                 fp.write("# 输入输出样例" + "\n\n" + self._content["samples"] + "\n\n")
