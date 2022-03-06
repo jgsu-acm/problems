@@ -1,4 +1,4 @@
-# oj-problems
+# problems
 
 `jgsuoj` 上所有题目的题面、大部分题目的数据生成器和标程以及管理器。
 
