@@ -9,34 +9,48 @@ from src.generator import Generator
 
 EDITOR = "code"
 
+ID_SYNTEX_HELP = """
+\b
+{ids} 支持以下语法：
+    * P1001-P1010 代表 P1001,P1002,...,P1010
+    * P1001+5 代表 P1001,P1002,...,P1005
+"""
+
 
 def process_pids(raw: list[str]):
     pids = []
     for item in raw:
-        t = item.split('-')
-        if len(t) == 1:
-            pids.extend(t)
-        elif len(t) == 2:
-            lb = int(re.search(r"\d+$", t[0]).group())
-            rb = int(re.search(r"\d+$", t[1]).group())
-            if rb < lb:
-                raise Exception("题目区间错误")
-            lpre = t[0][:-len(str(lb))]
-            rpre = t[1][:-len(str(rb))]
-            if lpre != rpre:
-                raise Exception("题目 ID 前缀不相同")
-            for i in range(lb, rb + 1):
-                pids.append(lpre + str(i))
-        else:
+        plus, minus = map(lambda c: item.count(c), ['+', '-'])
+        if min(plus, minus) > 0 or max(plus, minus) > 1:  # 加减号不能全有，数量不能超过 1
             raise Exception("题目区间格式错误")
+        if not (plus or minus):
+            pids.append(item)
+        else:
+            l, r = item.split('+' if plus else '-')
+            if plus:
+                if not r.isdigit():
+                    raise Exception("追加数量格式错误")
+                pre, lend = re.search(r"(.+)(\d+)$", l).groups()
+                start, stop = map(int, [lend, r])
+                stop += start
+            else:
+                pre, lend, rpre, rend = map(lambda s: re.search(r"(.+)(\d+)$", s).groups(), [l, r])
+                if pre != rpre:
+                    raise Exception("题目 ID 前缀不相同")
+                start, stop = map(int, [lend, rend])
+                if start > stop:
+                    raise Exception("题目区间错误")
+                stop += 1
+            for i in range(start, stop):
+                pids.append(f"{pre}{i}")
     return pids
 
 
-@click.command("c", help="创建题目")
+@click.command("c", short_help="创建题目", help=f"创建 PIDS 题目\n\n{ID_SYNTEX_HELP.format(ids='PIDS 与 SOURCEIDS')}")
 @click.argument("pids", nargs=-1, required=True)
 @click.option("--source", "-s", type=click.Choice(["luogu"]), default="luogu",
               callback=lambda c, p, v: v if c.params["spids"] else None, help="从何处获取题目")
-@click.option("--spids", "-i", multiple=True, metavar="SOURCEIDS", help="获取哪些题面，支持区间，题目数量及顺序要与要创建的题目相同")
+@click.option("--spids", "-i", multiple=True, metavar="SOURCEIDS", help="获取哪些题面，数量及顺序要与欲创建的题目相同")
 @click.option("--submitans", "-sa", "is_sa", is_flag=True, help="提交答案题")
 @click.option("--nogen", "-ng", is_flag=True, help="不生成生成器模板")
 @click.option("--nostd", "-ns", is_flag=True, help="不生成标程模板")
@@ -58,8 +72,8 @@ def create(pids: list[str], source: str, spids: list[str], is_sa: bool, nogen: b
         problem_map.get(source, Creator)(*item, *args).create()
 
 
-@click.command("g", help="生成测试数据")
-@click.argument("pids", nargs=-1)
+@click.command("g", short_help="生成测试数据", help=f"生成 PIDS 测试数据\n\n{ID_SYNTEX_HELP.format(ids='PIDS')}")
+@click.argument("pids", nargs=-1, required=True)
 def generate(pids: list[str]):
     logger = logging.getLogger("生成数据")
     logger.debug(f"题目：{pids}")
