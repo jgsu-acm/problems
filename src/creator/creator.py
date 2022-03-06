@@ -4,25 +4,14 @@ import re
 import shutil
 from collections import defaultdict
 from pathlib import Path
-from typing import Callable
+
+from src.rules import FORMAT_RULES
 
 PATH_GENTP_CPP = Path("template/gen_tp.cpp")
 PATH_GENTP_PY = Path("template/gen_tp.py")
 PATH_STDTP = Path("template/std_tp.cpp")
 
 EDITOR = "code"
-
-RE_CHINESE_CHAR_OR_PUNC = r"[\u3002\uff1b\uff0c\uff1a\u201c\u201d\uff08\uff09\u3001\uff1f\u300a\u300b]|[\u4e00-\u9fa5]"
-FORMAT_RULES: list[Callable[[str], str]] = [
-    lambda s: s.strip(),
-    lambda s: re.sub(r"\n{3,}", "\n\n", s),  # 删除多余换行符
-    lambda s: s.replace('≤', "\\leq"),  # ≤ -> \leq
-    lambda s: s.replace('≥', "\\geq"),  # ≥ -> \geq
-    lambda s: re.sub(r"\\le\s", lambda m: "\\leq ", s),  # \le -> \leq
-    lambda s: re.sub(r"\\ge\s", lambda m: "\\geq ", s),  # \ge -> \geq
-    lambda s: re.sub(r"(\d{2,})\^", lambda m: f"{{{m.group(1)}}}^", s),  # 10^5 -> {10}^5
-    lambda s: re.sub(rf"(?<={RE_CHINESE_CHAR_OR_PUNC}) (?={RE_CHINESE_CHAR_OR_PUNC})", "", s),  # 删除两汉字之间的空格
-]
 
 
 class Creator:
