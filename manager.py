@@ -9,7 +9,7 @@ from src.generator import Generator
 
 EDITOR = "code"
 
-ID_SYNTEX_HELP = """
+ID_SYNTAX_HELP = """
 \b
 {ids} 支持以下语法：
     * P1001-P1010 代表 P1001,P1002,...,P1010
@@ -46,7 +46,7 @@ def process_pids(raw: list[str]):
     return pids
 
 
-@click.command("c", short_help="创建题目", help=f"创建 PIDS 题目\n\n{ID_SYNTEX_HELP.format(ids='PIDS 与 SOURCEIDS')}")
+@click.command("c", short_help="创建题目", help=f"创建 PIDS 题目\n\n{ID_SYNTAX_HELP.format(ids='PIDS 与 SOURCEIDS')}")
 @click.argument("pids", nargs=-1, required=True)
 @click.option("--source", "-s", type=click.Choice(["luogu"]), default="luogu",
               callback=lambda c, p, v: v if c.params["spids"] else None, help="从何处获取题目")
@@ -72,7 +72,7 @@ def create(pids: list[str], source: str, spids: list[str], is_sa: bool, nogen: b
         problem_map.get(source, Creator)(*item, *args).create()
 
 
-@click.command("g", short_help="生成测试数据", help=f"生成 PIDS 测试数据\n\n{ID_SYNTEX_HELP.format(ids='PIDS')}")
+@click.command("g", short_help="生成测试数据", help=f"生成 PIDS 测试数据\n\n{ID_SYNTAX_HELP.format(ids='PIDS')}")
 @click.argument("pids", nargs=-1, required=True)
 def generate(pids: list[str]):
     logger = logging.getLogger("生成数据")
