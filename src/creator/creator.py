@@ -65,7 +65,7 @@ class Creator:
             self._logger.info("创建配置文件")
             with open(self.__path / "config.yaml", "w", encoding="UTF-8") as fp:
                 fp.write('type: submit_answer\noutputs:\n  - ["", 100]\n')
-            return
+            return self
         if not self.__nogen:
             self._logger.info("创建生成器")
             shutil.copy(self.__gen_tp_path, self.__gen_path)
