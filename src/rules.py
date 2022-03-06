@@ -5,6 +5,7 @@ RE_CHINESE_CHAR = r"[\u3002\uff1b\uff0c\uff1a\u201c\u201d\uff08\uff09\u3001\uff1
 
 FORMAT_RULES: list[Callable[[str], str]] = [
     lambda s: s.strip(),
+    lambda s: re.sub(r"  $", "\n", s),  # 双空格 -> 换行符
     lambda s: re.sub(r"\n{3,}", "\n\n", s),  # 删除多余换行符
     lambda s: s.replace('≤', "\\leq"),  # ≤ -> \leq
     lambda s: s.replace('≥', "\\geq"),  # ≥ -> \geq
