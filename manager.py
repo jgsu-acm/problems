@@ -17,14 +17,14 @@ ID_SYNTAX_HELP = """
 """
 
 
-def process_pids(raw: list[str]):
-    pids = []
-    for item in raw:
+def process_ids(items: list[str]):
+    ids = []
+    for item in items:
         plus, minus = map(lambda c: item.count(c), ['+', '-'])
         if min(plus, minus) > 0 or max(plus, minus) > 1:  # 加减号不能全有，数量不能超过 1
             raise Exception("题目区间格式错误")
         if not (plus or minus):
-            pids.append(item)
+            ids.append(item)
         else:
             l, r = item.split('+' if plus else '-')
             if plus:
@@ -42,8 +42,8 @@ def process_pids(raw: list[str]):
                     raise Exception("题目区间错误")
                 stop += 1
             for i in range(start, stop):
-                pids.append(f"{pre}{i}")
-    return pids
+                ids.append(f"{pre}{i}")
+    return ids
 
 
 @click.command("c", short_help="创建题目", help=f"创建 PIDS 题目\n\n{ID_SYNTAX_HELP.format(ids='PIDS 与 SOURCEIDS')}")
@@ -61,7 +61,7 @@ def create(pids: list[str], source: str, spids: list[str], is_sa: bool, nogen: b
                  f"是否是提交答案题：{is_sa}，是否创建数据生成器：{not nogen}，是否创建标程：{not nostd}，"
                  f"是否使用 python 数据生成器：{use_python}")
 
-    pids, spids = process_pids(pids), process_pids(spids)
+    pids, spids = process_ids(pids), process_ids(spids)
     logger.info(f"欲创建的题目 ID 为：{pids}；题目来源 ID 为：{spids}")
     if len(pids) != len(spids):
         raise Exception("题目数量不匹配")
@@ -78,7 +78,7 @@ def generate(pids: list[str]):
     logger = logging.getLogger("生成数据")
     logger.debug(f"题目：{pids}")
 
-    pids = process_pids(pids)
+    pids = process_ids(pids)
     logger.info(f"欲生成数据的题目 ID 为：{pids}")
     for pid in pids:
         Generator(pid).generate()
