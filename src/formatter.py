@@ -45,46 +45,37 @@ class Formatter(Problem):
         lines = []
         with open(self._path_md, "r+", encoding="UTF-8") as fp:
             status = None
-            s = ""
             for line in fp.readlines():
                 line = self.__format_line(line)
-
                 if status:
                     if status == "sample" and line == "```":
                         status = None
-                        lines.append(s + "\n```")
-                        s = ""
+                        lines[-1] += "\n```"
                     elif status == "environment" and not line:
                         status = None
-                        lines.append(s)
-                        s = ""
                     elif status == "html" and re.match(r"</.*>", line):
                         status = None
-                        lines.append(s + "\n" + line)
-                        s = ""
+                        lines[-1] += '\n' + line
                     elif status == "formula" and line.count("$$") == 1:
                         status = None
-                        lines.append(s + "\n" + line)
-                        s = ""
+                        lines[-1] += '\n' + line
                     else:
-                        s += '\n' + line
+                        lines[-1] += '\n' + line
                 else:
                     if re.match(r"```(input|output)", line):
                         status = "sample"
-                        s += line
+                        lines.append(line)
                     elif line and line[0] in ['>', '*', '-', *string.digits, '|']:
                         status = "environment"
-                        s += line
+                        lines.append(line)
                     elif re.match(r"<.*>", line):
                         status = "html"
-                        s += line
+                        lines.append(line)
                     elif line.count("$$") == 1:
                         status = "formula"
-                        s += line
+                        lines.append(line)
                     elif line:
                         lines.append(line)
-            if s:
-                lines.append(s)
 
         with open(self._path_md, "w", encoding="UTF-8") as fp:
             for line in lines[:-1]:
