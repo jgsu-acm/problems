@@ -5,6 +5,7 @@ from itertools import repeat
 import click
 
 from src.creator import problem_map, Creator
+from src.formatter import Formatter
 from src.generator import Generator
 
 EDITOR = "code"
@@ -56,7 +57,7 @@ def process_ids(items: list[str]):
 @click.option("--nostd", "-ns", is_flag=True, help="不生成标程模板")
 @click.option("--python", "-py", "use_python", is_flag=True, help="使用 python 生成器")
 def create(pids: list[str], spids: list[str], source: str, is_sa: bool, nogen: bool, nostd: bool, use_python: bool):
-    logger = logging.getLogger("创建题目")
+    logger = logging.getLogger(create.short_help)
     logger.debug(f"题目：{pids}，来源：[{source}]{spids}"
                  f"是否是提交答案题：{is_sa}，是否创建数据生成器：{not nogen}，是否创建标程：{not nostd}，"
                  f"是否使用 python 数据生成器：{use_python}")
@@ -77,13 +78,25 @@ def create(pids: list[str], spids: list[str], source: str, is_sa: bool, nogen: b
 @click.command("g", short_help="生成测试数据", help=f"生成 PIDS 测试数据\n\n{ID_SYNTAX_HELP.format(ids='PIDS')}")
 @click.argument("pids", nargs=-1, required=True)
 def generate(pids: list[str]):
-    logger = logging.getLogger("生成数据")
+    logger = logging.getLogger(generate.short_help)
     logger.debug(f"题目：{pids}")
 
     pids = process_ids(pids)
     logger.info(f"欲生成数据的题目 ID 为：{pids}")
     for pid in pids:
         Generator(pid).generate()
+
+
+@click.command("f", short_help="格式化题面", help=f"格式化 PIDS 题面\n\n{ID_SYNTAX_HELP.format(ids='PIDS')}")
+@click.argument("pids", nargs=-1, required=True)
+def format(pids: list[str]):
+    logger = logging.getLogger(format.short_help)
+    logger.debug(f"题目：{pids}")
+
+    pids = process_ids(pids)
+    logger.info(f"欲格式化题面的题目 ID 为：{pids}")
+    for pid in pids:
+        Formatter(pid).format()
 
 
 @click.group()
@@ -95,4 +108,5 @@ def main(level: str):
 if __name__ == "__main__":
     main.add_command(create)
     main.add_command(generate)
+    main.add_command(format)
     main()

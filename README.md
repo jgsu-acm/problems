@@ -58,3 +58,19 @@ Usage: manager.py g [OPTIONS] PIDS...
 ```
 
 </details>
+
+#### 格式化题面
+
+<details>
+
+```txt
+Usage: manager.py f [OPTIONS] PIDS...
+
+  格式化 PIDS 题面
+
+  PIDS 支持以下语法：
+      * P1001-P1010 代表 P1001,P1002,...,P1010
+      * P1001+5 代表 P1001,P1002,...,P1005
+```
+
+</details>

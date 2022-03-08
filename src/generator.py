@@ -1,21 +1,17 @@
 import logging
 import os
-import re
 import shutil
-
 from pathlib import Path
+
+from src.problem import Problem
 
 PATH_TMP_FOLDER = Path("temp")
 
 
-class Generator:
+class Generator(Problem):
     def __init__(self, pid: str):
+        super().__init__(pid)
         self._logger = logging.getLogger("生成器")
-
-        self.__path = Path(f"problems/{re.match(r'[A-Z]+', pid).group()}/{pid}")
-        self.__gen_cpp_path = self.__path / "gen.cpp"
-        self.__gen_py_path = self.__path / "gen.py"
-        self.__std_path = self.__path / "std.cpp"
 
     @staticmethod
     def __ensure_and_clear_temp_folder():
@@ -34,19 +30,19 @@ class Generator:
 
         self._logger.debug("清空临时文件夹")
         self.__ensure_and_clear_temp_folder()
-        if not self.__std_path.exists():
+        if not self._path_std.exists():
             raise Exception("标程不存在")
 
         self._logger.info("编译标程")
-        self.__compile(self.__std_path)
+        self.__compile(self._path_std)
 
         self._logger.info("生成输入样例")
-        if self.__gen_cpp_path.exists():
+        if self._path_gen_cpp.exists():
             self._logger.info("编译生成器")
-            self.__compile(self.__gen_cpp_path)
+            self.__compile(self._path_gen_cpp)
             os.system(f"cd {PATH_TMP_FOLDER} && gen")
-        elif self.__gen_py_path.exists():
-            shutil.copy(self.__gen_py_path, PATH_TMP_FOLDER)
+        elif self._path_gen_py.exists():
+            shutil.copy(self._path_gen_py, PATH_TMP_FOLDER)
             os.system(f"cd {PATH_TMP_FOLDER} && python gen.py")
         else:
             raise Exception("生成器不存在")
@@ -58,4 +54,4 @@ class Generator:
             self._logger.info(f"输出样例 #{file.stem} 已生成")
 
         self._logger.info("开始打包测试数据")
-        os.system(f"7z a -tzip {self.__path / 'testcase.zip'} {PATH_TMP_FOLDER / '*.in'} {PATH_TMP_FOLDER / '*.out'}")
+        os.system(f"7z a -tzip {self._path / 'testcase.zip'} {PATH_TMP_FOLDER / '*.in'} {PATH_TMP_FOLDER / '*.out'}")
