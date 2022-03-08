@@ -1,4 +1,5 @@
 import re
+import string
 from typing import Callable
 
 from src.problem import Problem
@@ -9,7 +10,7 @@ RE_CHINESE_CHAR_OR_PUNC = r"[\u3002\uff1b\uff0c\uff1a\u201c\u201d\uff08\uff09\u3
 
 FORMAT_RULES: list[Callable[[str], str]] = [
     # 删除
-    lambda s: s.strip(),
+    lambda s: s.rstrip(),
     lambda s: re.sub(rf"(?<={RE_CHINESE_CHAR_OR_PUNC}) (?={RE_CHINESE_CHAR_OR_PUNC})", "", s),  # 删除两汉字之间的空格
     lambda s: re.sub(rf" (?={RE_CHINESE_PUNC})", "", s),
     lambda s: re.sub(rf"(?<={RE_CHINESE_PUNC}) ", "", s),
@@ -43,22 +44,47 @@ class Formatter(Problem):
     def format(self):
         lines = []
         with open(self._path_md, "r+", encoding="UTF-8") as fp:
-            nobreakline = False
+            status = None
             s = ""
             for line in fp.readlines():
-                line = line.rstrip()
-                if not line or line == "```":
-                    nobreakline = False
-                    continue
-                if nobreakline:
-                    s += '\n' + line
-                else:
-                    if s:
+                line = self.__format_line(line)
+
+                if status:
+                    if status == "sample" and line == "```":
+                        status = None
+                        lines.append(s + "\n```")
+                        s = ""
+                    elif status == "environment" and not line:
+                        status = None
                         lines.append(s)
-                    s = line
-                    if re.match(r"<.*>", line) or re.match(r"```(input|output)", line) or line[0] == '>':
-                        nobreakline = True
-        lines.append(s)
+                        s = ""
+                    elif status == "html" and re.match(r"</.*>", line):
+                        status = None
+                        lines.append(s + "\n" + line)
+                        s = ""
+                    elif status == "formula" and line.count("$$") == 1:
+                        status = None
+                        lines.append(s + "\n" + line)
+                        s = ""
+                    else:
+                        s += '\n' + line
+                else:
+                    if re.match(r"```(input|output)", line):
+                        status = "sample"
+                        s += line
+                    elif line and line[0] in ['>', '*', '-', *string.digits, '|']:
+                        status = "environment"
+                        s += line
+                    elif re.match(r"<.*>", line):
+                        status = "html"
+                        s += line
+                    elif line.count("$$") == 1:
+                        status = "formula"
+                        s += line
+                    elif line:
+                        lines.append(line)
+            if s:
+                lines.append(s)
 
         with open(self._path_md, "w", encoding="UTF-8") as fp:
             for line in lines[:-1]:
