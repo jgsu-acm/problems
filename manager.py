@@ -18,7 +18,7 @@ ID_SYNTAX_HELP = """
 """
 
 
-def process_ids(items: list[str]):
+def parse_ids(items: list[str]):
     ids = []
     for item in items:
         plus, minus = map(lambda c: item.count(c), ['+', '-'])
@@ -31,7 +31,7 @@ def process_ids(items: list[str]):
             if plus:
                 if not r.isdigit():
                     raise Exception("追加数量格式错误")
-                pre, lend = re.search(r"(.+)(\d+)$", l).groups()
+                pre, lend = re.search(r"(.+?)(\d+)$", l).groups()
                 start, stop = map(int, [lend, r])
                 stop += start
             else:
@@ -62,7 +62,7 @@ def create(pids: list[str], spids: list[str], source: str, is_sa: bool, nogen: b
                  f"是否是提交答案题：{is_sa}，是否创建数据生成器：{not nogen}，是否创建标程：{not nostd}，"
                  f"是否使用 python 数据生成器：{use_python}")
 
-    pids, spids = process_ids(pids), process_ids(spids)
+    pids, spids = parse_ids(pids), parse_ids(spids)
     logger.info(f"欲创建的题目 ID 为：{pids}")
     if spids:
         logger.info("题目来源 ID 为：{spids}")
@@ -81,7 +81,7 @@ def generate(pids: list[str]):
     logger = logging.getLogger(generate.short_help)
     logger.debug(f"题目：{pids}")
 
-    pids = process_ids(pids)
+    pids = parse_ids(pids)
     logger.info(f"欲生成数据的题目 ID 为：{pids}")
     for pid in pids:
         Generator(pid).generate()
@@ -93,7 +93,7 @@ def fmt(pids: list[str]):
     logger = logging.getLogger(fmt.short_help)
     logger.debug(f"题目：{pids}")
 
-    pids = process_ids(pids)
+    pids = parse_ids(pids)
     logger.info(f"欲格式化题面的题目 ID 为：{pids}")
     for pid in pids:
         Formatter(pid).format()
