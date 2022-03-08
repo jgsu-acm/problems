@@ -47,7 +47,7 @@ class Formatter(Problem):
             s = ""
             for line in fp.readlines():
                 line = line.rstrip()
-                if not line:
+                if not line or line == "```":
                     nobreakline = False
                     continue
                 if nobreakline:
