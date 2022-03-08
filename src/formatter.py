@@ -41,22 +41,26 @@ class Formatter(Problem):
         return line
 
     def format(self):
+        lines = []
         with open(self._path_md, "r+", encoding="UTF-8") as fp:
-            lines = list(
-                map(self.__format_line,
-                    map(lambda r: r.strip(),
-                        filter(lambda s: s != '\n', fp.readlines())
-                        )
-                    )
-            )
+            nobreakline = False
+            s = ""
+            for line in fp.readlines():
+                line = line.rstrip()
+                if not line:
+                    nobreakline = False
+                    continue
+                if nobreakline:
+                    s += '\n' + line
+                else:
+                    if s:
+                        lines.append(s)
+                    s = line
+                    if re.match(r"<.*>", line) or re.match(r"```(input|output)", line) or line[0] == '>':
+                        nobreakline = True
+        lines.append(s)
 
         with open(self._path_md, "w", encoding="UTF-8") as fp:
-            sample = False
-            for i, line in enumerate(lines):
-                if re.match(r"```(input|output)\d+", line):
-                    sample = True
-                elif sample and line == "```":
-                    sample = False
-                fp.write(f"{line}\n")
-                if not (sample or i == len(lines) - 1):
-                    fp.write("\n")
+            for line in lines[:-1]:
+                fp.write(f"{line}\n\n")
+            fp.write(f"{lines[-1]}\n")
