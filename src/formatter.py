@@ -43,6 +43,7 @@ class Formatter(Problem):
         return line
 
     def format(self):
+        self._logger.info("格式化")
         lines = []
         with open(self._path_md, "r+", encoding="UTF-8") as fp:
             status = None

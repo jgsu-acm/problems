@@ -1,4 +1,3 @@
-import logging
 import os
 import shutil
 from pathlib import Path
@@ -11,7 +10,6 @@ PATH_TMP_FOLDER = Path("temp")
 class Generator(Problem):
     def __init__(self, pid: str):
         super().__init__(pid)
-        self._logger = logging.getLogger("生成器")
 
     @staticmethod
     def __ensure_and_clear_temp_folder():
@@ -26,7 +24,7 @@ class Generator(Problem):
             raise Exception(f"{path} 编译失败")
 
     def generate(self):
-        self._logger.info("开始创建")
+        self._logger.info("生成测试数据")
 
         self._logger.debug("清空临时文件夹")
         self.__ensure_and_clear_temp_folder()
@@ -53,5 +51,5 @@ class Generator(Problem):
             os.system(f"{PATH_TMP_FOLDER / 'std'} < {file} > {PATH_TMP_FOLDER / (file.stem + '.out')}")
             self._logger.info(f"输出样例 #{file.stem} 已生成")
 
-        self._logger.info("开始打包测试数据")
+        self._logger.info("打包测试数据")
         os.system(f"7z a -tzip {self._path / 'testcase.zip'} {PATH_TMP_FOLDER / '*.in'} {PATH_TMP_FOLDER / '*.out'}")

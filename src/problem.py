@@ -1,3 +1,4 @@
+import logging
 import os
 import re
 from pathlib import Path
@@ -8,6 +9,7 @@ class Problem:
 
     def __init__(self, pid: str):
         self._pid = pid
+        self._logger = logging.getLogger(f"题目 {pid}")
 
         self._path = Path(f"problems/{re.match(r'[A-Z]+', pid).group()}/{pid}")
         self._path_md = self._path / f"{self._pid}.md"

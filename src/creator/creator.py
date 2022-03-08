@@ -1,4 +1,3 @@
-import logging
 import shutil
 from collections import defaultdict
 from pathlib import Path
@@ -23,7 +22,6 @@ class Creator(Problem):
 
     def __init__(self, pid: str, spid: str, is_sa: bool, nogen: bool, nostd: bool, use_python: bool):
         super().__init__(pid)
-        self._logger = logging.getLogger(f"创建题目({pid})")
 
         self._spid, self.__is_sa, self.__nogen, self.__nostd, self.__use_python = \
             spid, is_sa, nogen, nostd, use_python
@@ -61,19 +59,25 @@ class Creator(Problem):
                 self._logger.info("跳过")
                 return self
         self._path.mkdir(parents=True, exist_ok=True)
+
         self._logger.info("创建题面")
         self._get()
         self.__write()
+
         Formatter(self._pid).format()
+
         if self.__is_sa:
             self._logger.info("创建配置文件")
             with open(self._path / "config.yaml", "w", encoding="UTF-8") as fp:
                 fp.write('type: submit_answer\noutputs:\n  - ["", 100]\n')
             return self
+
         if not self.__nogen:
             self._logger.info("创建生成器")
             shutil.copy(self.__path_gentp, self.__path_gen)
+
         if not self.__nostd:
             self._logger.info("创建标程")
             shutil.copy(PATH_STDTP, self._path_std)
+
         return self
