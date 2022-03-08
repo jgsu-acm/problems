@@ -62,6 +62,6 @@
 | $13 \sim 16$ |   $500$    |    $2$     |
 | $17 \sim 20$ |   $500$    |    $50$    |
 
-对于所有数据，$2 \le n, m \le 500$，$1 \le T \le 50$，$1 \le k_i \le \min \{ 2 (n + m), 50 \}$，$1 \le \sum_{i = 1}^{T} k_i \le 50$，$0 \le x \le {10}^6$，$1 \le p \le 2 (n + m)$，$t \in \{ 0, 1 \}$。
+对于所有数据，$2 \leq n, m \leq 500$，$1 \leq T \leq 50$，$1 \leq k_i \leq \min \{ 2 (n + m), 50 \}$，$1 \leq \sum_{i = 1}^{T} k_i \leq 50$，$0 \leq x \leq {10}^6$，$1 \leq p \leq 2 (n + m)$，$t \in \{ 0, 1 \}$。
 
 保证对于每个 $i \in [1, T]$，$p_{i, j}$ 互不相同。
