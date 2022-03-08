@@ -27,7 +27,7 @@ FORMAT_RULES: list[Callable[[str], str]] = [
     # 增加
     lambda s: re.sub(rf"({RE_SEPARATED_FROM_CHN})({RE_CHINESE_CHAR})", lambda m: ' '.join(m.groups()), s),
     lambda s: re.sub(rf"({RE_CHINESE_CHAR})({RE_SEPARATED_FROM_CHN})", lambda m: ' '.join(m.groups()), s),  # 增加空格
-    lambda s: re.sub(r"([a-z0-9])\\", lambda m: f"{m.group(1)} \\", s),  # 增加公式中反斜杠前空格
+    lambda s: re.sub(r"([A-Za-z0-9])\\", lambda m: f"{m.group(1)} \\", s),  # 增加公式中反斜杠前空格
 ]
 
 
