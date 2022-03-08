@@ -24,8 +24,8 @@ FORMAT_RULES: list[Callable[[str], str]] = [
     lambda s: re.sub(rf"(?<={RE_CHINESE_CHAR}),(?={RE_CHINESE_CHAR})", "，", s),  # 两汉字间半角逗号 -> 全角
     lambda s: re.sub(rf"(?<={RE_CHINESE_CHAR}):$", "：", s),  # 汉字后半角冒号 -> 全角冒号
     # 增加
-    lambda s: re.sub(rf"([A-Za-z0-9$])({RE_CHINESE_CHAR})", lambda m: f"{m.group(1)} {m.group(2)}", s),
-    lambda s: re.sub(rf"({RE_CHINESE_CHAR})([A-Za-z0-9$])", lambda m: f"{m.group(1)} {m.group(2)}", s),  # 增加汉英间空格
+    lambda s: re.sub(rf"([A-Za-z0-9$`])({RE_CHINESE_CHAR})", lambda m: f"{m.group(1)} {m.group(2)}", s),
+    lambda s: re.sub(rf"({RE_CHINESE_CHAR})([A-Za-z0-9$`])", lambda m: f"{m.group(1)} {m.group(2)}", s),  # 增加汉英间空格
     lambda s: re.sub(r"([a-z0-9])\\", lambda m: f"{m.group(1)} \\", s),  # 增加公式中反斜杠前空格
 ]
 
