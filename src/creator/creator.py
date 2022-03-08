@@ -26,14 +26,13 @@ class Creator:
 
     def __init__(self, pid: str, spid: str, is_sa: bool, nogen: bool, nostd: bool, use_python: bool):
         self._logger = logging.getLogger(f"题目({pid})")
-        self.__pid = pid
-        self._spid = spid
-        self.__is_sa = is_sa
-        self.__nogen = nogen
-        self.__nostd = nostd
-        self.__use_python = use_python
+
+        self.__pid, self._spid, self.__is_sa, self.__nogen, self.__nostd, self.__use_python = \
+            pid, spid, is_sa, nogen, nostd, use_python
 
         self._content = defaultdict(str)
+        self._content["samples"] = "```input1\n\n```\n\n```output1\n\n```"
+
         self.__path = Path(f"problems/{re.match(r'[A-Z]+', pid).group()}/{pid}")
         self.__md_path = self.__path / f"{self.__pid}.md"
         self.__gen_path = self.__path / ("gen.py" if use_python else "gen.cpp")
@@ -64,7 +63,7 @@ class Creator:
                     if self._content[sec]:
                         fp.write(f"{self._content[sec]}\n\n")
                 fp.write(f"# {self.sections[psecs[-1]]}\n")
-                if self._content[sec]:
+                if self._content[psecs[-1]]:
                     fp.write(f"\n{self._content[psecs[-1]]}\n")
 
     def create(self):
