@@ -50,7 +50,7 @@ class Formatter(Problem):
             for line in fp.readlines():
                 line = self.__format_line(line)
                 if status:
-                    if status == "sample" and line == "```":
+                    if status == "code" and line == "```":
                         status = None
                         lines[-1] += "\n```"
                     elif status == "environment" and not line:
@@ -64,8 +64,8 @@ class Formatter(Problem):
                     else:
                         lines[-1] += '\n' + line
                 else:
-                    if re.match(r"```(input|output)", line):
-                        status = "sample"
+                    if re.match(r"```.*", line):
+                        status = "code"
                         lines.append(line)
                     elif line and line[0] in ['>', '*', '-', *string.digits, '|']:
                         status = "environment"
