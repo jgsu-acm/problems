@@ -68,7 +68,7 @@ class Creator:
 
     def create(self):
         if self.__md_path.exists():
-            if input(f"题目 {self.__pid} 已经存在了，继续(Y)还是跳过(Not Y)") != 'Y':
+            if input(f"题目 {self.__pid} 已经存在了，继续(Y)还是跳过(Not Y)").lower() != 'y':
                 self._logger.info("跳过")
                 return self
         self.__path.mkdir(parents=True, exist_ok=True)
