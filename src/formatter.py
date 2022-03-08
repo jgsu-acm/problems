@@ -57,7 +57,7 @@ class Formatter(Problem):
                     elif status == "html" and re.match(r"</.*>", line):
                         status = None
                         lines[-1] += '\n' + line
-                    elif status == "formula" and line.count("$$") == 1:
+                    elif status == "formula" and (line.count("$$") == 1 or line.count("$") % 2):
                         status = None
                         lines[-1] += '\n' + line
                     else:
@@ -72,7 +72,7 @@ class Formatter(Problem):
                     elif re.match(r"<.*>", line):
                         status = "html"
                         lines.append(line)
-                    elif line.count("$$") == 1:
+                    elif line.count("$$") == 1 or line.count("$") % 2:
                         status = "formula"
                         lines.append(line)
                     elif line:
