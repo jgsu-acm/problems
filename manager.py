@@ -89,8 +89,8 @@ def generate(pids: list[str]):
 
 @click.command("f", short_help="格式化题面", help=f"格式化 PIDS 题面\n\n{ID_SYNTAX_HELP.format(ids='PIDS')}")
 @click.argument("pids", nargs=-1, required=True)
-def format(pids: list[str]):
-    logger = logging.getLogger(format.short_help)
+def fmt(pids: list[str]):
+    logger = logging.getLogger(fmt.short_help)
     logger.debug(f"题目：{pids}")
 
     pids = process_ids(pids)
@@ -108,5 +108,5 @@ def main(level: str):
 if __name__ == "__main__":
     main.add_command(create)
     main.add_command(generate)
-    main.add_command(format)
+    main.add_command(fmt)
     main()
