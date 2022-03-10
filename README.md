@@ -8,9 +8,7 @@
 Usage: manager.py [OPTIONS] COMMAND [ARGS]...
 
 Options:
-  -l, --level [ERROR|WARNING|INFO|DEBUG]
-                                  日志级别
-  --help                          Show this message and exit.
+  -l, --level [ERROR|WARNING|INFO|DEBUG]  日志级别
 
 Commands:
   c  创建题目
