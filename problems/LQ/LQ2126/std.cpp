@@ -33,7 +33,7 @@ signed main(signed argc, char const *argv[])
     }
     w[1]=4;
     for(int i=2;i<=20;i++)
-        w[i]=((1<<i)-1+3*i*(1<<i-1)%mod+(i-1)*w[i-1]%mod)%mod;
+        w[i]=((1<<i)-1+3*i*(1<<(i-1))%mod+(i-1)*w[i-1]%mod)%mod;
     int t;
     cin>>t;
     while(t--)
