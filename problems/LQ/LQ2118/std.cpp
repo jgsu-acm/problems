@@ -25,7 +25,6 @@ ll solve2()
     int n=2021, m=5;
     for(int i=1;i<=n;i++)
     {
-
         for(int j=1;j<=min(i,m);j++)
         {
             if(j==1) dp[i][j]=1;
