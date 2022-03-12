@@ -8,7 +8,11 @@ typedef uniform_real_distribution<> rndf;
 mt19937 egn(time(nullptr));
 const int CASES = 10;
 // ==============================
-
+#include <tuple>
+#include <vector>
+#include <algorithm>
+typedef tuple<int,int,int,int> tp4;
+vector<tp4> v;
 // ==============================
 int main(int argc, char const* argv[])
 {
@@ -31,7 +35,10 @@ int main(int argc, char const* argv[])
             fout<<rnd(1,1e9)(egn)<<' ';
         fout<<endl;
         for(int i=0;i<m;i++)
-            fout<<rnd(1,1e9)(egn)<<' '<<rnd(1,n)(egn)<<' '<<rnd(1,1e9)(egn)<<' '<<rnd(1,5e8)(egn)<<endl;
+            v.emplace_back(rnd(1,1e9)(egn),rnd(1,n)(egn),rnd(1,1e9)(egn),rnd(1,5e8)(egn));
+        sort(v.begin(), v.end());
+        for(auto [i,j,k,l] : v)
+            fout<<i<<' '<<j<<' '<<k<<' '<<l<<endl;
         // ==============================
         fout.close();
     }
