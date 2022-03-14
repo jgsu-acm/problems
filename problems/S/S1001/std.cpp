@@ -35,7 +35,7 @@ signed main(signed argc, char const *argv[])
             {
                 if(v[j].first&v[p].first||v[j].first&(v[p].first<<1)||(v[j].first<<1)&v[p].first)
                     continue;
-                for(size_t q=0;q<=k;q++)
+                for(int q=0;q<=k;q++)
                 {
                     if(q+v[j].second>k) break;
                     dp[i][j][q+v[j].second] += dp[i-1][p][q];
