@@ -32,7 +32,7 @@ signed main(signed argc, char const *argv[])
     }
     s[2]=4;
     for(int i=3;i<=20;i++)
-        s[i]=((1<<(i-1))-1+3*(i-1)*(1<<(i-2))%mod+(i-2)*s[i-1]%mod)%mod;
+        s[i]=((1<<(i-1))*(3*i-4)-i+2)%mod;
     int t;
     cin>>t;
     while(t--)
