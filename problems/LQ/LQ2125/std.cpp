@@ -18,10 +18,6 @@ signed main(signed argc, char const *argv[])
     //======================================
     int n,m,k;
     cin>>n>>m>>k;
-    // dp[i][p][q][j] 当前放到第 i 行，放法为 p，上一行放法为 q，已经放了 j 个马的方案数
-    // dp[1][?][0][popcount(?)] = 1
-    // dp[i][p][q][j] = Σdp[i-1][q][a=与p不冲突][j-popcount(a)]
-    // dp[m][?][?][k]
     for(int i=0;i<(1<<n);i++)
     {
         pc[i]=__builtin_popcount(i);
