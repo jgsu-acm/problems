@@ -34,10 +34,10 @@ signed main(signed argc, char const *argv[])
                 for(int a=0;a<(1<<n);a++)
                 {
                     if(p<<1&a || p>>1&a) continue;
-                    for(int j=0;j<=k-pc[p];j++)
+                    for(int j=pc[p];j<=k;j++)
                     {
-                        dp[i][p][q][j+pc[p]] += dp[i-1][q][a][j];
-                        dp[i][p][q][j+pc[p]] %= mod;
+                        dp[i][p][q][j] += dp[i-1][q][a][j-pc[p]];
+                        dp[i][p][q][j] %= mod;
                     }
                 }
             }
