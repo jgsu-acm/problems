@@ -1,53 +1,45 @@
 #include <iostream>
-#include <cstdio>
 #include <ctime>
 using namespace std;
-//==========================================
-#include <vector>
-#include <cstring>
-const int MAXN = 1e5+5;
-vector<int> v;
-bool sa[MAXN], sb[MAXN];
-int mx, ans;
-void add(int p)
+clock_t c1;
+inline void exit()
 {
-    if(!sb[p]) ans++;
-    sb[p] = true;
-    mx = max(mx, p);
+#ifdef LOCAL
+    cerr << "Time Used:" << clock() - c1 << "ms" << endl;
+#endif
+    exit(0);
 }
+//==========================================
+#include <cmath>
+const int maxn = 105;
+const int maxw = 1e5+5;
+bool dp[maxw];
 signed main(signed argc, char const *argv[])
 {
-    clock_t c1 = clock();
 #ifdef LOCAL
-    system("cls");
     freopen("in.in", "r", stdin);
     freopen("out.out", "w", stdout);
 #endif
+    c1 = clock();
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
     //======================================
     int n;
     cin>>n;
-    for(int i=0;i<n;i++)
+    for(int i=1;i<=n;i++)
     {
-        int tmp;
-        cin>>tmp;
-        v.push_back(tmp);
+        int w;
+        cin>>w;
+        for(int j=1e5;j>=0;j--)
+            dp[j]|=dp[abs(j-w)];
+        for(int j=0;j<=1e5-w;j++)
+            dp[j]|=dp[j+w];
+        dp[w]=true;
     }
-    for(auto i : v)
-    {
-        for(int j=1;j<=mx;j++)
-        {
-            if(sa[j])
-            {
-                if(i!=j) add(abs(i-j));
-                add(i+j);
-            }
-        }
-        add(i);
-        memcpy(sa, sb, sizeof(sa));
-    }
+    int ans = 0;
+    for(int j=1;j<=1e5;j++)
+        if(dp[j]) ans++;
     cout<<ans<<endl;
     //======================================
-end:
-    cerr << "Time Used:" << clock() - c1 << "ms" << endl;
-    return 0;
+    exit();
 }
