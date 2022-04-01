@@ -1,3 +1,5 @@
+//! Cygwin Linux 下测试通过
+//! TDM-GCC MSVC 下较大数据 RE
 #include <iostream>
 #include <ctime>
 using namespace std;
