@@ -8,7 +8,8 @@ typedef uniform_real_distribution<> rndf;
 mt19937 egn(time(nullptr));
 const int CASES = 10;
 // ==============================
-
+#include <algorithm>
+#include <iterator>
 // ==============================
 int main(int argc, char const* argv[])
 {
@@ -18,8 +19,7 @@ int main(int argc, char const* argv[])
         // ==============================
         int _t = 1e3;
         fout<<_t<<endl;
-        for(int i=0;i<_t;i++)
-            fout<<rnd(1,2e8)(egn)<<' ';
+        generate_n(ostream_iterator<int>(fout, " "), _t, [](){ return rnd(1,2e8)(egn); });
         // ==============================
         fout.close();
     }
