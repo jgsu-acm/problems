@@ -15,7 +15,9 @@ int main(int argc, char const* argv[])
     {
         ofstream fout(to_string(_t)+".in");
         // ==============================
-        generate_n(ostream_iterator<int>(fout, "\n"), 1e6, []() { return rnd(1,5761450)(egn); });
+        int q = 1e6;
+        fout<<q<<endl;
+        generate_n(ostream_iterator<int>(fout, "\n"), q, []() { return rnd(1,5761450)(egn); });
         // ==============================
         fout.close();
     }
