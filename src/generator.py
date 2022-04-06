@@ -20,7 +20,7 @@ class Generator(Problem):
 
     @staticmethod
     def __compile(path: Path):
-        if os.system(f"g++ {path} -o {PATH_TMP_FOLDER / path.stem} -O2 -std=c++17"):
+        if os.system(f"g++ {path} -o {PATH_TMP_FOLDER / path.stem} -O2 -std=c++20"):
             raise Exception(f"{path} 编译失败")
 
     def generate(self):
