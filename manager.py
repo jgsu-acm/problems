@@ -65,7 +65,7 @@ def create(pids: list[str], spids: list[str], source: str, is_sa: bool, nogen: b
     pids, spids = parse_ids(pids), parse_ids(spids)
     logger.info(f"欲创建的题目 ID 为：{pids}")
     if spids:
-        logger.info("题目来源 ID 为：{spids}")
+        logger.info(f"题目来源 ID 为：{spids}")
         if source and len(pids) != len(spids):
             raise Exception("题目数量不匹配")
     args = is_sa, nogen, nostd, use_python
