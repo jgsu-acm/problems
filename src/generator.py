@@ -52,4 +52,6 @@ class Generator(Problem):
             self._logger.info(f"输出样例 #{file.stem} 已生成")
 
         self._logger.info("打包测试数据")
-        os.system(f"7z u -tzip {self._path / 'testcase.zip'} {PATH_TMP_FOLDER / '*.in'} {PATH_TMP_FOLDER / '*.out'}")
+        path_zip = self._path / "testcase.zip"
+        path_zip.unlink(missing_ok=True)
+        os.system(f"7z a -tzip {path_zip} {PATH_TMP_FOLDER / '*.in'} {PATH_TMP_FOLDER / '*.out'}")
