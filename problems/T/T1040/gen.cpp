@@ -15,7 +15,7 @@ int main(int argc, char const* argv[])
     {
         ofstream fout(to_string(_t)+".in");
         // ==============================
-        int q = 1e6;
+        int q = 5e5;
         fout<<q<<endl;
         unordered_set<ll> s;
         while(s.size()!=q)
