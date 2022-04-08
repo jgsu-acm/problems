@@ -5,7 +5,7 @@ typedef uniform_int_distribution<> rnd;
 typedef uniform_int_distribution<ll> rndll;
 typedef uniform_real_distribution<> rndf;
 mt19937 egn(time(nullptr));
-const int CASES = 25;
+const int CASES = 10;
 // ==============================
 
 // ==============================
@@ -17,6 +17,14 @@ int main(int argc, char const* argv[])
         // ==============================
         int a = rnd(1,1e9)(egn);
         int p = rnd(1,1e9)(egn);
+        if(_t>5)
+        {
+            while(__gcd(a,p)==1)
+            {
+                a = rnd(1,1e9)(egn);
+                p = rnd(1,1e9)(egn);
+            }
+        }
         string b;
         generate_n(inserter(b, b.begin()), 2e7-1, []() { return char(rnd('0','9')(egn)); });
         b = char(rnd('0','9')(egn)) + b;
