@@ -2,7 +2,6 @@
 #include <ctime>
 using namespace std;
 //==========================================
-const int maxn = 1e5+5;
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
