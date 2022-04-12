@@ -1,32 +1,62 @@
-/*
-* @Author: Tifa
-* @LastEditTime: 2021-04-19 19:21:54
-* @Description:
-*/
-#include <bits/stdc++.h>
+#include <iostream>
+#include <cstdio>
+#include <ctime>
 using namespace std;
-#define _for(i, l, r) for (auto i = (l); i <= (r); ++i)
-#define _rfor(i, r, l) for (auto i = (r); i >= (l); --i)
-const int N = 2e5 + 5;
-
-int x[N];
-
-int main() {
-    int kase;
-    scanf("%d", &kase);
-    while (kase--) {
+//==========================================
+const int MAXN = 25;
+int amount[MAXN];
+#include <cstring>
+signed main(signed argc, char const *argv[])
+{
+    clock_t c1 = clock();
+#ifdef LOCAL
+    freopen("in.in", "r", stdin);
+    freopen("out.out", "w", stdout);
+#endif
+    //======================================
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        memset(amount, 0, sizeof(amount));
         int n;
-        scanf("%d", &n);
-        _for(i, 1, n) scanf("%d", x + i);
-        int state = 0;
-        _rfor(i, 20, 0) {
-            int now = 1 << i;
-            int cnt = 0;
-            _for(i, 1, n) cnt += !!(x[i] & now);
-            if (!(cnt & 1)) continue;
-            state = ((n - cnt) & 1) && (cnt != 1) ? -1 : 1;
-            break;
+        cin>>n;
+        for(int i=0;i<n;i++)
+        {
+            int x;
+            cin>>x;
+            for(int j=0;x;j++)
+            {
+                if(x % 2) amount[j]++;
+                x /= 2;
+            }
         }
-        printf("%d\n", state);
+        int ans = 0;
+        for(int i=20;i>=0;i--)
+        {
+            int a=amount[i], b=n-a;
+            if(a)
+            {
+                if(b%2)
+                {
+                    if(a%2)
+                    {
+                        if(a==1) ans=1;
+                        else ans=-1;
+                        break;
+                    }
+                }
+                else if(a%2)
+                {
+                    ans = 1;
+                    break;
+                }
+            }
+        }
+        cout<<ans<<endl;
     }
+    //======================================
+end:
+    cerr << "Time Used:" << clock() - c1 << "ms" << endl;
+    return 0;
 }
