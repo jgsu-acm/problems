@@ -15,8 +15,9 @@ int main(int argc, char const* argv[])
         ofstream fout(to_string(t)+".in");
         // ==============================
         int n;
-        if(t<=5) n=15;
-        else n=100;
+        if(t==1) n = 1;
+        else if(t<=5) n = 15;
+        else n = 100;
         fout<<n<<endl;
         int sum;
         do sum = rnd(1,1e5)(egn);
