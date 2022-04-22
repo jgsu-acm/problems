@@ -27,7 +27,7 @@ signed main(signed argc, char const *argv[])
             pre[i][j] = pre[i][j-1]+a[i][j];
         }
     }
-    ll cnt = 0;
+    ll ans = 0;
     for(int l=1;l<=m;l++)
     {
         for(int r=l;r<=m;r++)
@@ -42,11 +42,11 @@ signed main(signed argc, char const *argv[])
                     sum -= pre[t][r]-pre[t][l-1];
                     t++;
                 }
-                cnt += b-t+1;
+                ans += b-t+1;
             }
         }
     }
-    cout<<cnt<<endl;
+    cout<<ans<<endl;
     //======================================
 #ifdef LOCAL
     auto c2 = chrono::high_resolution_clock::now();

@@ -20,19 +20,14 @@ signed main(signed argc, char const *argv[])
     //======================================
     int n,m;
     cin>>n>>m;
-    copy_n(istream_iterator<int>(cin), m, inserter(a, a.begin()));
+    a.resize(m);
+    b.resize(m);
+    copy_n(istream_iterator<int>(cin), m, a.begin());
     cin>>m;
-    copy_n(istream_iterator<int>(cin), m, inserter(b, b.begin()));
-    b.insert(b.begin(), a.size()-b.size(), 0);
-    int i;
-    for(i=0;i<a.size();i++)
-        if(a[i]>b[i]) break;
-    ll ans = a[i]-b[i];
-    for(i++;i<a.size();i++)
-    {
-        int jz = max(2, max(a[i], b[i])+1);
-        ans = (ans*jz+a[i]-b[i])%mod;
-    }
+    copy_n(istream_iterator<int>(cin), m, b.begin()+(a.size()-m));
+    ll ans = 0;
+    for(int i=0;i<a.size();i++)
+        ans = (ans*max({2, a[i]+1, b[i]+1})+a[i]-b[i])%mod;
     cout<<ans<<endl;
     //======================================
 #ifdef LOCAL

@@ -10,14 +10,19 @@ class calculator { public: virtual int calc(int n) = 0; };
 class calculator1 : public calculator
 {
 private:
-    int dp[maxn];
+    ll dp[3];
 public:
     int calc(int n)
     {
-        dp[1]=1, dp[2]=2, dp[3]=5;
-        for(int i=4;i<=n;i++)
-            dp[i] = (2LL*dp[i-1]%mod + dp[i-3])%mod;
-        return dp[n];
+        dp[0]=1, dp[1]=2, dp[2]=5;
+        for(int i=0;i<n-3;i++)
+        {
+            ll t = (dp[2]*2+dp[0])%mod;
+            dp[0] = dp[1];
+            dp[1] = dp[2];
+            dp[2] = t;
+        }
+        return n<4?dp[n-1]:dp[2];
     }
 };
 class calculator2 : public calculator
