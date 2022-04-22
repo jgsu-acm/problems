@@ -15,12 +15,8 @@ int main(int argc, char const* argv[])
     {
         ofstream fout(to_string(_t)+".in");
         // ==============================
-        switch(_t)
-        {
-        case 1: fout<<1<<endl; break;
-        case 2: fout<<2<<endl; break;
-        default: fout<<int(1e7-(10-_t))<<endl; break;
-        }
+        if(_t<=3) fout<<_t<<endl;
+        else fout<<int(1e7-(10-_t))<<endl;
         // ==============================
         fout.close();
     }

@@ -90,6 +90,18 @@ int main(int argc, char const* argv[])
             }
             generate_n(inserter(v1,v1.end()), ma-mb, [n]() { return rnd(0,n-1)(egn); });
         }
+        if(ma==mb)
+        {
+            for(int i=0;i<ma;i++)
+            {
+                if(v1[i]>v2[i]) break;
+                if(v1[i]<v2[i])
+                {
+                    swap(v1[i], v2[i]);
+                    break;
+                }
+            }
+        }
         fout<<ma<<endl;
         for(auto i : v1) fout<<i<<' ';
         fout<<endl;
