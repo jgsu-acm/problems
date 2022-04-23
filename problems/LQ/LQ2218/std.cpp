@@ -5,8 +5,8 @@ using namespace std;
 #include <unordered_map>
 typedef long long ll;
 typedef pair<int,int> pii;
-inline ll hs(ll x,ll y) { return (x<<32)+y; }
-unordered_map<ll, pii> mp;
+template<> struct std::hash<pii> { ll operator()(const pii& p) const { return (ll(p.first)>>32)+p.second; } };
+unordered_map<pii, pii> mp;
 int ans;
 void dfs(int x,int y,int r)
 {
@@ -15,7 +15,7 @@ void dfs(int x,int y,int r)
         ll t = (ll)(i-x)*(i-x);
         for(int j=y;t+(ll)(j-y)*(j-y)<=r*r;j++)
         {
-            auto it = mp.find(hs(i,j));
+            auto it = mp.find({i,j});
             if(it==mp.end()) continue;
             ans += it->second.second;
             int t = it->second.first;
@@ -24,7 +24,7 @@ void dfs(int x,int y,int r)
         }
         for(int j=y;t+(ll)(j-y)*(j-y)<=r*r;j--)
         {
-            auto it = mp.find(hs(i,j));
+            auto it = mp.find({i,j});
             if(it==mp.end()) continue;
             ans += it->second.second;
             int t = it->second.first;
@@ -49,9 +49,9 @@ signed main(signed argc, char const *argv[])
     {
         int x,y,r;
         cin>>x>>y>>r;
-        ll t = hs(x,y);
-        mp[t].second++;
-        mp[t].first = max(mp[t].first, r);
+        auto p = pii(x,y);
+        mp[p].second++;
+        mp[p].first = max(mp[p].first, r);
     }
     for(int i=0;i<m;i++)
     {

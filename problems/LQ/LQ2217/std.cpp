@@ -6,13 +6,13 @@ using namespace std;
 const int maxn = 1e7+5;
 const int mod = 1e9+7;
 typedef long long ll;
-class calculator { public: virtual int calc(int n) = 0; };
-class calculator1 : public calculator
+class solver { public: virtual int solve(int n) = 0; };
+class solver1 : public solver
 {
 private:
     ll dp[3];
 public:
-    int calc(int n)
+    int solve(int n)
     {
         dp[0]=1, dp[1]=2, dp[2]=5;
         for(int i=0;i<n-3;i++)
@@ -25,7 +25,7 @@ public:
         return n<4?dp[n-1]:dp[2];
     }
 };
-class calculator2 : public calculator
+class solver2 : public solver
 {
 private:
     struct Matrix
@@ -44,7 +44,7 @@ private:
         }
     };
 public:
-    int calc(int n)
+    int solve(int n)
     {
         switch(n)
         {
@@ -66,12 +66,12 @@ public:
         }
     }
 };
-class calculator3 : public calculator
+class solver3 : public solver
 {
 private:
     int a[2][2], b[2][2];
 public:
-    int calc(int n)
+    int solve(int n)
     {
         memset(a, 0, sizeof(a));
         a[0][0] = 1;
@@ -104,8 +104,8 @@ signed main(signed argc, char const *argv[])
     //======================================
     int n;
     cin>>n;
-    calculator* c = new calculator2;
-    cout<<c->calc(n)<<endl;
+    solver* s = new solver2;
+    cout<<s->solve(n)<<endl;
     //======================================
 #ifdef LOCAL
     auto c2 = chrono::high_resolution_clock::now();
