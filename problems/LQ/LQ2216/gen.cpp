@@ -19,31 +19,32 @@ int main(int argc, char const* argv[])
         switch(_t)
         {
         case 1:
-            n = rnd(1,20)(egn);
-            m = rnd(1,20)(egn);
+            n = rnd(10,20)(egn);
+            m = rnd(10,20)(egn);
             break;
         case 2:
-            n = m = rnd(1,20)(egn);
+            n = m = rnd(10,20)(egn);
             break;
         case 3:
             n = 20;
             m = 19;
             break;
         case 4:
-            n = rnd(21,100)(egn);
-            m = rnd(21,100)(egn);
+            n = rnd(80,100)(egn);
+            m = rnd(80,100)(egn);
             break;
         case 5:
-            n = m = rnd(21,200)(egn);
+            n = m = rnd(80,100)(egn);
             break;
-        case 6: case 7:
-            n = 200;
-            m = 199;
+        case 6: 
+            n = 99;
+            m = 100;
             break;
-        case 8:
-            n = m = rnd(201,500)(egn);
+        case 7:
+            n = 100;
+            m = 99;
             break;
-        case 9:
+        case 8: case 9:
             n = 499;
             m = 500;
             break;
@@ -53,8 +54,19 @@ int main(int argc, char const* argv[])
             break;
         }
         int k;
-        if(_t==2||_t==6||_t==9) k = 2.5e8;
-        else k = rnd(1,1e5)(egn);
+        switch(_t)
+        {
+        case 1: k = rnd(1e4,5e4)(egn); break;
+        case 2: k = rnd(1e4,5e4)(egn); break;
+        case 3: k = rnd(5e4,1e5)(egn); break;
+        case 4: k = rnd(1e5,1e6)(egn); break;
+        case 5: k = rnd(1e5,1e6)(egn); break;
+        case 6: k = rnd(1e5,1e6)(egn); break;
+        case 7: k = rnd(1e5,1e6)(egn); break;
+        case 8: k = rnd(1e8,2e8)(egn); break;
+        case 9: k = rnd(1e7,2e7)(egn); break;
+        case 10: k = rnd(1e7,2e7)(egn); break;
+        }
         fout<<n<<' '<<m<<' '<<k<<endl;
         for(int i=0;i<n;i++)
         {
