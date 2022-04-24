@@ -19,8 +19,10 @@ FORMAT_RULES: list[Callable[[str], str]] = [
     lambda s: re.sub(r"^- ", "* ", s),  # - -> *
     lambda s: s.replace('≤', "\\leq"),  # ≤ -> \leq
     lambda s: s.replace('≥', "\\geq"),  # ≥ -> \geq
+    lambda s: s.replace('≠', "\\neq"),  # ≥ -> \neq
     lambda s: re.sub(r"\\le\s", lambda m: "\\leq ", s),  # \le -> \leq
     lambda s: re.sub(r"\\ge\s", lambda m: "\\geq ", s),  # \ge -> \geq
+    lambda s: re.sub(r"\\ne\s", lambda m: "\\neq ", s),  # \ne -> \neq
     lambda s: re.sub(r"\d{2,}(?=\^)", lambda m: f"{{{m.group()}}}", s),  # 10^5 -> {10}^5
     lambda s: re.sub(rf"(?<={RE_CHINESE_CHAR}),(?={RE_CHINESE_CHAR})", "，", s),  # 两汉字间半角逗号 -> 全角
     lambda s: re.sub(rf"(?<={RE_CHINESE_CHAR}):$", "：", s),  # 汉字后半角冒号 -> 全角冒号
