@@ -15,8 +15,8 @@ int main(int argc, char const* argv[])
     {
         ofstream fout(to_string(_t)+".in");
         // ==============================
-        if(_t<=4) fout<<rnd(1,10)(egn)<<' '<<rnd(1,10)(egn)<<endl;
-        else fout<<rnd(90,100)(egn)<<' '<<rnd(90,100)(egn)<<endl;
+        if(_t<=4) fout<<_t+1<<' '<<(12+_t)/2<<endl;
+        else fout<<rnd(60,80)(egn)<<' '<<rnd(90,100)(egn)<<endl;
         // ==============================
         fout.close();
     }
