@@ -35,7 +35,7 @@ def parse_ids(items: list[str]):
                 start, stop = map(int, [lend, r])
                 stop += start
             else:
-                pre, lend, rpre, rend = map(lambda s: re.search(r"(.+)(\d+)$", s).groups(), [l, r])
+                (pre, lend), (rpre, rend) = map(lambda s: re.search(r"(.+)(\d+)$", s).groups(), [l, r])
                 if pre != rpre:
                     raise Exception("题目 ID 前缀不相同")
                 start, stop = map(int, [lend, rend])
