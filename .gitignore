@@ -4,4 +4,4 @@ __pycache__
 temp
 source
 testcase.zip
-*.exe
+*.exe*
