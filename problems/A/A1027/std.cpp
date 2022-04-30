@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
+#include <numeric>
 using namespace std;
 const int maxn = 1e5+5;
 const double eps = 1e-6;
@@ -9,11 +10,9 @@ int a[maxn], b[maxn];
 double c[maxn];
 bool check(double m)
 {
-    double sum = 0;
     for(int i=1;i<=n;i++) c[i] = a[i]-m*b[i];
     sort(c+1, c+1+n, greater<int>());
-    for(int i=1;i<=5;i++) sum += c[i];
-    return sum>0;
+    return accumulate(c+1, c+1+5, 0.0)>0;
 }
 int main()
 {
