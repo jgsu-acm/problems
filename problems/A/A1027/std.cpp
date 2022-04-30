@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <numeric>
 using namespace std;
-const int maxn = 1e5+5;
+const int maxn = 2e5+5;
 const double eps = 1e-6;
 int n;
 int a[maxn], b[maxn];
@@ -11,7 +11,7 @@ double c[maxn];
 bool check(double m)
 {
     for(int i=1;i<=n;i++) c[i] = a[i]-m*b[i];
-    sort(c+1, c+1+n, greater<int>());
+    sort(c+1, c+1+n, greater<double>());
     return accumulate(c+1, c+1+5, 0.0)>0;
 }
 int main()
