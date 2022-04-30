@@ -1,11 +1,9 @@
 #include <iostream>
-#include <chrono>
-using namespace std;
-//==========================================
 #include <cmath>
 #include <tuple>
 #include <vector>
 #include <algorithm>
+using namespace std;
 const int maxn = 1e4+5;
 const int maxh = 1e5+5;
 typedef tuple<int,int,int> tp3;
@@ -58,16 +56,10 @@ vector<tp3> q;
 int ans[maxn];
 inline void add(int p) { modify(a[p], 1); }
 inline void sub(int p) { modify(a[p], -1); }
-signed main(signed argc, char const *argv[])
+int main()
 {
-#ifdef LOCAL
-    freopen("in.in", "r", stdin);
-    freopen("out.out", "w", stdout);
-    auto c1 = chrono::high_resolution_clock::now();
-#endif
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    //======================================
     build(1,1e5);
     int n,m;
     cin>>n>>m;
@@ -95,10 +87,5 @@ signed main(signed argc, char const *argv[])
         ans[z] = p.second-(p.first*(p.first-1)>>1);
     }
     for(int i=0;i<m;i++) cout<<ans[i]+42<<'\n';
-    //======================================
-#ifdef LOCAL
-    auto c2 = chrono::high_resolution_clock::now();
-    cerr<<"Time Used:"<<chrono::duration_cast<chrono::milliseconds>(c2-c1).count()<<"ms"<<endl;
-#endif
     return 0;
 }

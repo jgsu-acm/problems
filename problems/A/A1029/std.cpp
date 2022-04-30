@@ -1,8 +1,6 @@
 #include <iostream>
-#include <chrono>
-using namespace std;
-//==========================================
 #include <cstring>
+using namespace std;
 const int mod = 998244353;
 typedef long long ll;
 struct Matrix
@@ -20,16 +18,10 @@ struct Matrix
         return res;
     }
 };
-signed main(signed argc, char const *argv[])
+int main()
 {
-#ifdef LOCAL
-    freopen("in.in", "r", stdin);
-    freopen("out.out", "w", stdout);
-    auto c1 = chrono::high_resolution_clock::now();
-#endif
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    //======================================
     int n;
     cin>>n;
     switch(n)
@@ -48,10 +40,5 @@ signed main(signed argc, char const *argv[])
             if(n&1) b=b*a;
         cout<<(b.ele[0][0]*3+b.ele[0][1]*2)%mod<<endl;
     }
-    //======================================
-#ifdef LOCAL
-    auto c2 = chrono::high_resolution_clock::now();
-    cerr<<"Time Used:"<<chrono::duration_cast<chrono::milliseconds>(c2-c1).count()<<"ms"<<endl;
-#endif
     return 0;
 }
