@@ -18,7 +18,7 @@ int main(int argc, char const* argv[])
         if(_t==2)
         {
             fout<<"2 1 2"<<endl;
-            fout<<"0 1 0"<<endl;
+            fout<<"1 2 0"<<endl;
         }
         else 
         {
