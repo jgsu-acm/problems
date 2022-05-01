@@ -83,7 +83,7 @@ int main()
         while(l>x) add(--l);
         while(r<y) add(++r);
         while(r>y) sub(r--);
-        auto p = query(ceil((r-l+1)/2.0));
+        auto p = query((r-l+1)/2+1);
         ans[z] = p.second-(p.first*(p.first-1)>>1);
     }
     for(int i=0;i<m;i++) cout<<ans[i]+42<<'\n';
