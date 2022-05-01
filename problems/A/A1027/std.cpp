@@ -4,7 +4,7 @@
 #include <numeric>
 using namespace std;
 const int maxn = 1e5+5;
-const double eps = 1e-7;
+const double eps = 1e-8;
 int n;
 int a[maxn], b[maxn];
 double c[maxn];
