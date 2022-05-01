@@ -3,8 +3,8 @@
 #include <algorithm>
 #include <numeric>
 using namespace std;
-const int maxn = 2e5+5;
-const double eps = 1e-6;
+const int maxn = 1e5+5;
+const double eps = 1e-7;
 int n;
 int a[maxn], b[maxn];
 double c[maxn];
@@ -20,7 +20,7 @@ int main()
     cin.tie(nullptr);
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i]>>b[i];
-    double l=0, r=5e3;
+    double l=0, r=5e7;
     while(r-l>eps)
     {
         double mid = (l+r)/2;
