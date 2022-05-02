@@ -29,7 +29,7 @@ signed main(signed argc, char const *argv[])
     //======================================
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i]>>b[i];
-    double l=0, r=1e9;
+    double l=0, r=1e5;
     while(r-l>eps)
     {
         double m = (l+r)/2;
