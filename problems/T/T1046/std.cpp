@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <numeric>
 using namespace std;
-const int maxn = 1e5+5;
+const int maxn = 1e4+5;
 const double eps = 1e-8;
 int n,k;
 int a[maxn], b[maxn];
