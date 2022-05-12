@@ -19,6 +19,7 @@ int main(int argc, char const* argv[])
         int m = n-1;
         fout<<n<<' '<<m<<endl;
         generate_n(ostream_iterator<int>(fout, " "), n, []() { return rnd(-1e9, 1e9)(egn); });
+        fout<<endl;
         for(int i=0;i<m;i++)
         {
             int l = rnd(1,n)(egn);
