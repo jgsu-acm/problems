@@ -15,9 +15,9 @@ int main(int argc, char const* argv[])
     {
         ofstream fout(to_string(_t)+".in");
         // ==============================
-        int q = 1e5;
+        int q = 5e5;
         fout<<q<<endl;
-        for(int i=0;i<q;i++) fout<<rnd(1,1e4)(egn)<<' '<<rnd(1,1e4)(egn)<<endl;
+        for(int i=0;i<q;i++) fout<<rnd(1,1e9)(egn)<<' '<<rnd(1,1e9)(egn)<<endl;
         // ==============================
         fout.close();
     }

@@ -2,7 +2,15 @@
 #include <chrono>
 using namespace std;
 //==========================================
+const int mod = 998244353;
 typedef long long ll;
+ll qpow(ll a,ll k,ll p)
+{
+    ll res = 1;
+    for(;k;k>>=1,a=a*a%p)
+        if(k&1) res=res*a%p;
+    return res;
+}
 signed main(signed argc, char const *argv[])
 {
 #ifdef LOCAL
@@ -22,7 +30,7 @@ signed main(signed argc, char const *argv[])
     {
         ll x,y;
         cin>>x>>y;
-        cout<<x*y*(x+1)*(y+1)/4<<endl;
+        cout<<x*y%mod*(x+1)%mod*(y+1)%mod*qpow(4,mod-2,mod)%mod<<endl;
     }
     //======================================
 #ifdef LOCAL
