@@ -5,3 +5,4 @@ temp
 source
 testcase.zip
 *.exe*
+.markdownlint.json
