@@ -20,10 +20,10 @@ class Creator(Problem):
         "hint": "说明/提示"
     }
 
-    def __init__(self, pid: str, spid: str, is_sa: bool, nogen: bool, nostd: bool, use_python: bool):
+    def __init__(self, pid: str, spid: str, is_sa: bool, nogen: bool, nostd: bool, use_python: bool, private: bool):
         super().__init__(pid)
 
-        self._spid, self.__is_sa, self.__nogen, self.__nostd = spid, is_sa, nogen, nostd
+        self._spid, self.__is_sa, self.__nogen, self.__nostd, self.__private = spid, is_sa, nogen, nostd, private
 
         self._content = defaultdict(str)
         self._content["samples"] = "```input1\n\n```\n\n```output1\n\n```"
@@ -64,6 +64,10 @@ class Creator(Problem):
         self.__write()
 
         Formatter(self._pid).format()
+
+        if self.__private:
+            with open(self._path / ".gitignore", "w", encoding="UTF-8") as fp:
+                fp.write("*\n!.gitignore\n")
 
         if self.__is_sa:
             self._logger.info("创建配置文件")

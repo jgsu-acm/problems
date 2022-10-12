@@ -55,12 +55,14 @@ def parse_ids(items: list[str]):
 @click.option("--submitans", "-sa", "is_sa", is_flag=True, help="提交答案题")
 @click.option("--nogen", "-ng", is_flag=True, help="不生成生成器模板")
 @click.option("--nostd", "-ns", is_flag=True, help="不生成标程模板")
+@click.option("--private", "-pr", is_flag=True, help="私有题目")
 @click.option("--python", "-py", "use_python", is_flag=True, help="使用 python 生成器")
-def create(pids: list[str], spids: list[str], source: str, is_sa: bool, nogen: bool, nostd: bool, use_python: bool):
+def create(pids: list[str], spids: list[str], source: str, is_sa: bool, nogen: bool, nostd: bool, use_python: bool, private: bool):
     logger = logging.getLogger(create.short_help)
     logger.debug(f"题目：{pids}，来源：[{source}]{spids}"
                  f"是否是提交答案题：{is_sa}，是否创建数据生成器：{not nogen}，是否创建标程：{not nostd}，"
-                 f"是否使用 python 数据生成器：{use_python}")
+                 f"是否使用 python 数据生成器：{use_python}"
+                 f"是否为私有题目：{private}")
 
     pids, spids = parse_ids(pids), parse_ids(spids)
     logger.info(f"欲创建的题目 ID 为：{pids}")
@@ -68,7 +70,7 @@ def create(pids: list[str], spids: list[str], source: str, is_sa: bool, nogen: b
         logger.info(f"题目来源 ID 为：{spids}")
         if source and len(pids) != len(spids):
             raise Exception("题目数量不匹配")
-    args = is_sa, nogen, nostd, use_python
+    args = is_sa, nogen, nostd, use_python, private
     iterator = iter(zip(pids, spids if spids else repeat(None)))
     problem_map.get(source, Creator)(*next(iterator), *args).create().open()
     for item in iterator:
