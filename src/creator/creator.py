@@ -68,7 +68,7 @@ class Creator(Problem):
         if self.__is_sa:
             self._logger.info("创建配置文件")
             with open(self._path / "config.yaml", "w", encoding="UTF-8") as fp:
-                fp.write('type: objective\noutputs:\n  - ["", 100]\n')
+                fp.write("type: objective\nanswers:\n  '1': ["", 100]\n")
             return self
 
         if not self.__nogen:
