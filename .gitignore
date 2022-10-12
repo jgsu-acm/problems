@@ -1,6 +1,7 @@
 __pycache__
 .idea
-.vscode
+.vscode/*
+!.vscode/settings.json
 temp
 source
 testcase.zip
