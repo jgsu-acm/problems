@@ -23,8 +23,7 @@ class Creator(Problem):
     def __init__(self, pid: str, spid: str, is_sa: bool, nogen: bool, nostd: bool, use_python: bool):
         super().__init__(pid)
 
-        self._spid, self.__is_sa, self.__nogen, self.__nostd, self.__use_python = \
-            spid, is_sa, nogen, nostd, use_python
+        self._spid, self.__is_sa, self.__nogen, self.__nostd = spid, is_sa, nogen, nostd
 
         self._content = defaultdict(str)
         self._content["samples"] = "```input1\n\n```\n\n```output1\n\n```"
