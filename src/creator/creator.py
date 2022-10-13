@@ -66,12 +66,12 @@ class Creator(Problem):
         Formatter(self._pid).format()
 
         if self.__private:
-            with open(self._path / ".gitignore", "w", encoding="UTF-8") as fp:
+            with open(self._path_ignore, "w", encoding="UTF-8") as fp:
                 fp.write("*\n!.gitignore\n")
 
         if self.__is_sa:
             self._logger.info("创建配置文件")
-            with open(self._path / "config.yaml", "w", encoding="UTF-8") as fp:
+            with open(self._path_config, "w", encoding="UTF-8") as fp:
                 fp.write("type: objective\nanswers:\n  '1': ["", 100]\n")
             return self
 

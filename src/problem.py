@@ -16,7 +16,17 @@ class Problem:
         self._path_gen_cpp = self._path / "gen.cpp"
         self._path_gen_py = self._path / "gen.py"
         self._path_std = self._path / "std.cpp"
+        self._path_config = self._path / "config.yaml"
+        self._path_ignore = self._path / ".gitignore"
 
     def open(self):
         os.system(f"{self.editor} {self._path_md}")
         return self
+
+    @property
+    def content(self):
+        return self._path_md.read_text(encoding="UTF-8")
+
+    @property
+    def is_private(self):
+        return self._path_ignore.exists()

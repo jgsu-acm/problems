@@ -1,9 +1,16 @@
+from dataclasses import dataclass
 import logging
+from os import environ
 import re
 from itertools import repeat
+import subprocess
 
 import click
+from matplotlib.pyplot import title
+from requests import request
+import requests
 
+from src.problem import Problem
 from src.creator import problem_map, Creator
 from src.formatter import Formatter
 from src.generator import Generator
@@ -101,6 +108,61 @@ def fmt(pids: list[str]):
         Formatter(pid).format()
 
 
+@click.command("ci", short_help="持续集成", help="GitHub Actions 持续集成")
+def ci():
+    logger = logging.getLogger(ci.short_help)
+
+    # if not ("CI" in environ.keys()):
+    #     logger.error("非 CI 环境")
+    #     return
+
+    token = environ.get("TOKEN")
+    if not token:
+        logger.error("未设置 TOKEN")
+        return
+
+    commit_msg = subprocess.check_output(["git", "log", "-1", "--pretty=%B"]).decode().strip()
+
+    create_re = re.compile(r"^\[\s*create:\s+(.*?)\s+(.*?)\s*\]$", re.MULTILINE | re.IGNORECASE)
+
+    problems_raw = re.findall(create_re, commit_msg)
+
+    @dataclass
+    class P:
+        pid: str
+        title: str
+        content: str
+        hidden: bool
+
+    problems: list[P] = []
+
+    for (index, (pid, title)) in enumerate(problems_raw):
+        logger.info(f"正在创建第 {index + 1} 题：{pid} {title}")
+
+        if not title and not pid:
+            print(f"::warning ::id {index + 1} 题目 ID 和标题均不能为空")
+        elif not title:
+            print(f"::warning ::pid {pid} 题目标题不能为空")
+        elif not pid:
+            print(f"::warning ::title {title} 题目 ID 不能为空")
+
+        problem = Problem(pid)
+        problems.append(P(pid, title, problem.content, problem.is_private))
+
+    for problem in problems:
+        payload = {
+            "title": problem.title,
+            "token": token,
+            "pid": problem.pid,
+        }
+        if problem.hidden:
+            payload["hidden"] = True  # type: ignore
+        resp = requests.post("https://www.jgsuoj.com/rest/problem", data=payload)
+        if not resp.ok:
+            print(f"::error ::{problem.pid} {problem.title} 创建失败")
+            continue
+
+
 @click.group()
 @click.option("--level", "-l", type=click.Choice(["ERROR", "WARNING", "INFO", "DEBUG"]), default="INFO", help="日志级别")
 def main(level: str):
@@ -111,4 +173,5 @@ if __name__ == "__main__":
     main.add_command(create)
     main.add_command(generate)
     main.add_command(fmt)
+    main.add_command(ci)
     main()
