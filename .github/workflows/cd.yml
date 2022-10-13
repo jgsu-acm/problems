@@ -21,7 +21,7 @@ jobs:
             echo "::set-output name=should_deploy::false"
           fi
 
-  cd:
+  create:
     needs: check
     runs-on: ubuntu-latest
     if: ${{ needs.check.outputs.should_deploy == 'true' }}
