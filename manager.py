@@ -112,9 +112,9 @@ def fmt(pids: list[str]):
 def cd():
     logger = logging.getLogger(cd.short_help)
 
-    # if not ("CI" in environ.keys()):
-    #     logger.error("非 CI 环境")
-    #     return
+    if not ("CI" in environ.keys()):
+        logger.error("非 CI 环境")
+        return
 
     token = environ.get("TOKEN")
     if not token:

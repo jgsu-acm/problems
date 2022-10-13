@@ -6,6 +6,8 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
+    outputs:
+      should_deploy: ${{ steps.check.outputs.should_deploy }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -14,15 +16,16 @@ jobs:
         id: check
         run: |
           // check if commit message contains "create"
-          if [[ $(git log -1 --pretty=%B) == *"create"* ]]; then
-            echo "contains=true" >> $GITHUB_ENV
+          if [[ $(git log -1 --pretty=%B) =~ "\[\s*create:\s+(.*?)\s+(.*?)\s*\]" ]]; then
+            echo "::set-output name=should_deploy::true"
           else
-            echo "contains=false" >> $GITHUB_ENV
+            echo "::set-output name=should_deploy::false"
           fi
 
   cd:
+    needs: check
     runs-on: ubuntu-latest
-    if: ${{ env.contains == 'true' }}
+    if: ${{ needs.check.outputs.should_deploy }}
     environment: oj
     steps:
       - name: Checkout
