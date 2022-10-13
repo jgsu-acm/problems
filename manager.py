@@ -123,7 +123,7 @@ def cd():
 
     commit_msg = subprocess.check_output(["git", "log", "-1", "--pretty=%B"]).decode().strip()
 
-    create_re = re.compile(r"^\[\s*create:\s+(.*?)\s+(.*?)\s*\]$", re.MULTILINE | re.IGNORECASE)
+    create_re = re.compile(r"^\[\s*create:\s+(.+?)\s+([^\]]+)\]$", re.MULTILINE | re.IGNORECASE)
 
     problems_raw = re.findall(create_re, commit_msg)
 
