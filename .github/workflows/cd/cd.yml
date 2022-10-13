@@ -1,0 +1,43 @@
+name: Problem Continuous Deployment
+on: 
+  push:
+    branches:
+      - main
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Check contain create problem task
+        id: check
+        run: |
+          // check if commit message contains "create"
+          if [[ $(git log -1 --pretty=%B) == *"create"* ]]; then
+            echo "contains=true" >> $GITHUB_ENV
+          else
+            echo "contains=false" >> $GITHUB_ENV
+          fi
+
+  cd:
+    runs-on: ubuntu-latest
+    if: ${{ env.contains == 'true' }}
+    environment: oj
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+          cache: 'pip' 
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Deployment
+        run: python manager.py cd
+        env:
+          TOKEN: ${{ secrets.TOKEN }}

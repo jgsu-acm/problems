@@ -108,9 +108,9 @@ def fmt(pids: list[str]):
         Formatter(pid).format()
 
 
-@click.command("ci", short_help="持续集成", help="GitHub Actions 持续集成")
-def ci():
-    logger = logging.getLogger(ci.short_help)
+@click.command("cd", short_help="持续集成", help="GitHub Actions 持续集成")
+def cd():
+    logger = logging.getLogger(cd.short_help)
 
     # if not ("CI" in environ.keys()):
     #     logger.error("非 CI 环境")
@@ -173,5 +173,5 @@ if __name__ == "__main__":
     main.add_command(create)
     main.add_command(generate)
     main.add_command(fmt)
-    main.add_command(ci)
+    main.add_command(cd)
     main()
