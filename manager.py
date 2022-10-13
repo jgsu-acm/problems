@@ -6,8 +6,6 @@ from itertools import repeat
 import subprocess
 
 import click
-from matplotlib.pyplot import title
-from requests import request
 import requests
 
 from src.problem import Problem
