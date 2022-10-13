@@ -15,7 +15,6 @@ jobs:
       - name: Check contain create problem task
         id: check
         run: |
-          // check if commit message contains "create"
           if [[ $(git log -1 --pretty=%B) =~ "\[\s*create:\s+(.*?)\s+(.*?)\s*\]" ]]; then
             echo "::set-output name=should_deploy::true"
           else
