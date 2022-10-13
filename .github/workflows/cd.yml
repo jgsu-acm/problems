@@ -24,7 +24,7 @@ jobs:
   cd:
     needs: check
     runs-on: ubuntu-latest
-    if: ${{ needs.check.outputs.should_deploy }}
+    if: ${{ needs.check.outputs.should_deploy == 'true' }}
     environment: oj
     steps:
       - name: Checkout
