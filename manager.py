@@ -145,7 +145,12 @@ def cd():
             print(f"::warning ::title {title} 题目 ID 不能为空")
 
         problem = Problem(pid)
-        problems.append(P(pid, title, problem.content, problem.is_private))
+
+        content = "# Temprary Content"
+        if not problem.is_private:
+            content = problem.content
+
+        problems.append(P(pid, title, content, problem.is_private))
 
     for problem in problems:
         payload = {
