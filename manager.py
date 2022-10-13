@@ -146,7 +146,7 @@ def cd():
 
         problem = Problem(pid)
 
-        content = "# Temprary Content"
+        content = "# Temporary Content"
         if not problem.is_private:
             content = problem.content
 
@@ -156,6 +156,7 @@ def cd():
         payload = {
             "title": problem.title,
             "token": token,
+            "content": problem.content,
             "pid": problem.pid,
         }
         if problem.hidden:
@@ -163,6 +164,7 @@ def cd():
         resp = requests.post("https://www.jgsuoj.com/rest/problem", data=payload)
         if not resp.ok:
             print(f"::error ::{problem.pid} {problem.title} 创建失败")
+            print(resp.text)
             continue
 
 
