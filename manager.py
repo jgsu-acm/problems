@@ -40,12 +40,12 @@ def parse_ids(items: list[str]):
                 start, stop = map(int, [lend, r])
                 stop += start
             else:
-                (pre, lend), (rpre, rend) = map(lambda s: re.search(r"(.+)(\d+)$", s).groups(), [l, r])
+                (pre, lend), (rpre, rend) = map(lambda s: re.search(r"(.+?)(\d+)$", s).groups(), [l, r])
                 if pre != rpre:
-                    raise Exception("题目 ID 前缀不相同")
+                    raise Exception(f"题目 ID 前缀不相同，{pre} 与 {rpre}")
                 start, stop = map(int, [lend, rend])
                 if start > stop:
-                    raise Exception("题目区间错误")
+                    raise Exception(f"题目区间错误，start={start}，stop={stop}")
                 stop += 1
             for i in range(start, stop):
                 ids.append(f"{pre}{i}")
