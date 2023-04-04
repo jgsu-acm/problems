@@ -1,30 +1,50 @@
-from math import floor
-from cyaron import *
+from collections import defaultdict
 from random import randint
+
+from cyaron import *
 from sympy import randprime
 
-CASES = 10
+CASES = 20
 
-for t in range(1, CASES + 1):
-    io = IO(f"{t}.in")
+
+def ans(n):
+    fac = defaultdict(int)
+    i = 2
+    while i * i <= n:
+        while n % i == 0:
+            n //= i
+            fac[i] += 1
+        i += 1
+    if n != 1:
+        fac[n] += 1
+    mul = 1
+    for x, y in fac.items():
+        if y % 2:
+            mul *= x
+    return mul
+
+
+for _t in range(1, CASES + 1):
+    io = IO(f"{_t}.in")
     # ==============================
-    if t == 1:
-        n = 1
-    elif t == 2:
-        n = 400
-    elif t == 3:
-        n = 551
+    if _t <= CASES * 0.3:
+        l = 1
+        r = 1000
+    elif _t <= CASES * 0.6:
+        l = 10**7
+        r = 10**8
     else:
-        if t <= 6:
-            maxn = 10**8
-        else:
-            maxn = 10**12
-        if t % 3 == 0:
-            n = randprime(1, maxn)
-        else:
-            s = floor(sqrt(sqrt(maxn)))
-            k = randint(1, s)
-            n = randint(1, s*s) * k * k
+        l = 10**11
+        r = 10**12
+    n: int
+    p = randint(1, 10)
+    if p <= 5:
+        n = randprime(l, r)  # type:ignore
+    else:
+        while True:
+            n = randint(l, r)
+            if ans(n) <= r:
+                break
     io.input_writeln(n)
     # ==============================
     io.close()
