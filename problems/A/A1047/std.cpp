@@ -7,6 +7,7 @@ int main()
     cin>>n;
     if(n==1) cout<<0<<endl;
     else if(n==2) cout<<1<<endl;
+    else if(n==3) cout<<3<<endl;
     else
     {
         long long tmp = pow(2, n-3);
