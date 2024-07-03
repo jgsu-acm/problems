@@ -2,8 +2,8 @@
 using namespace std;
 int main()
 {
-    double n;
+    long long n;
     cin>>n;
-    cout<<fixed<<setprecision(6)<<(n-1)*(n-1)<<endl;
+    cout<<(n-1)*(n-1)<<".000000"<<endl;
     return 0;
 }
