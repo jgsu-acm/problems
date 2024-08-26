@@ -22,8 +22,8 @@ class LuoguProblemCreator(Creator):
         s = ""
         for i in range(len(samples)):
             sample = samples[i]
-            s += f"```input{i + 1}\n{sample[0]}\n```\n\n"
-            s += f"```output{i + 1}\n{sample[1]}\n```\n\n"
+            s += f"```input{i + 1}\n{sample[0].rstrip()}\n```\n\n"
+            s += f"```output{i + 1}\n{sample[1].rstrip()}\n```\n\n"
         return s
 
     @staticmethod
