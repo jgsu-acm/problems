@@ -25,7 +25,7 @@
 
 同一行中相邻的两个数之间，恰好用一个空格隔开。
 
-保证 $1 \leq n \leq {10}^5,~0 \leq m \leq 7 \times {10}^6,~0 < u < v \leq {10}^9,~0 \leq q \leq 200,~1 \leq t \leq 71,~0 \leq a_i \leq {10}^8$。
+保证 $1 \leq n \leq {10}^5$，$0 \leq m \leq 7 \times {10}^6$，$0 < u < v \leq {10}^9$，$0 \leq q \leq 200$，$1 \leq t \leq 71$，$0 \leq a_i \leq {10}^8$。
 
 # 输出格式
 

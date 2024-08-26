@@ -41,4 +41,4 @@
 
 # 说明/提示
 
-对于 100%的数据，$1 \leq d \leq 20,~1 \leq n \leq 20,~0 \leq x \leq 128,~0 \leq y \leq 128,~0 < k \leq {10}^6$
+对于 100%的数据，$1 \leq d \leq 20$，$1 \leq n \leq 20$，$0 \leq x \leq 128$，$0 \leq y \leq 128$，$0 < k \leq {10}^6$

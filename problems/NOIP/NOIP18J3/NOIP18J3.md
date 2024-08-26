@@ -58,12 +58,12 @@
 
 【数据规模】
 
-对于 $10 \%$ 的数据，$n \leq 10;~m = 1;~0 \leq t_i \leq 100$。
+对于 $10 \%$ 的数据，$n \leq 10;m = 1;0 \leq t_i \leq 100$。
 
-对于 $30 \%$ 的数据，$n \leq 20;~m \leq 2;~0 \leq t_i \leq 100$。
+对于 $30 \%$ 的数据，$n \leq 20;m \leq 2;0 \leq t_i \leq 100$。
 
-对于 $50 \%$ 的数据，$n \leq 500;~m \leq 100;~0 \leq t_i \leq {10}^4$。
+对于 $50 \%$ 的数据，$n \leq 500;m \leq 100;0 \leq t_i \leq {10}^4$。
 
-另有 $20 \%$ 的数据，$n \leq 500;~m \leq 10;~0 \leq t_i \leq 4 \times {10}^6$。
+另有 $20 \%$ 的数据，$n \leq 500;m \leq 10;0 \leq t_i \leq 4 \times {10}^6$。
 
-对于 $100 \%$ 的数据，$n \leq 500;~m \leq 100;~0 \leq t_i \leq 4 \times {10}^6$。
+对于 $100 \%$ 的数据，$n \leq 500;m \leq 100;0 \leq t_i \leq 4 \times {10}^6$。

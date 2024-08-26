@@ -15,46 +15,68 @@ int main(int argc, char const* argv[])
     {
         ofstream fout(to_string(_t)+".in");
         // ==============================
-        if(_t==1) fout<<"1 100000"<<endl;
-        else if(_t==2)
+        ll l,r;
+        switch(_t)
         {
-            int r=1e9, l=r-1e5;
-            fout<<l<<' '<<r<<endl;
-        }
-        else if(_t==3) fout<<"500 677"<<endl;
-        else if(_t==4) fout<<"50 100"<<endl;
-        else if(_t==5) fout<<"257 4357"<<endl;
-        else if(_t==6) fout<<"176401 276401"<<endl;
-        else if(_t==7)
-        {
-            ll r=8000600000, l=r-1e5;
-            fout<<l<<' '<<r<<endl;
-        }
-        else if(_t==8)
-        {
-            ll r=9999300000, l=r-1e5;
-            fout<<l<<' '<<r<<endl;
-        }
-        else if(_t==9)
-        {
-            ll l=1, r=1e9;
-            fout<<l<<' '<<r<<endl;
-        }
-        else if(_t==10)
-        {
-            ll l=1e9, r=2e9;
-            fout<<l<<' '<<r<<endl;
-        }
-        else if(_t<=12)
-        {
-            ll l=rndll(2,1e9-1)(egn), r=l+1e9;
-            fout<<l<<' '<<r<<endl;
-        }
-        else
-        {
-            int k = _t-11;
-            ll r=(k+1)*1e11, l=r-1e9;
-            fout<<l<<' '<<r<<endl;
+        case 1:
+            fout<<"1 100000"<<endl;
+            break;
+        case 2:
+            fout<<ll(1e9-1e5)<<' '<<ll(1e9)<<endl;
+            break;
+        case 3:
+            fout<<"4413 104413"<<endl;
+            break;
+        case 4:
+            fout<<"829352 929352"<<endl;
+            break;
+        case 5:
+            fout<<"614967 714967"<<endl;
+            break;
+        case 6:
+            fout<<"332616 432616"<<endl;
+            break;
+        case 7:
+            fout<<"1575018021 1575118021"<<endl;
+            break;
+        case 8:
+            fout<<ll(9999300000-1e5)<<' '<<9999300000<<endl;
+            break;
+        case 9:
+            fout<<1<<' '<<ll(1e9)<<endl;
+            break;
+        case 10:
+            fout<<ll(1e9)<<' '<<ll(2e9)<<endl;
+            break;
+        case 11:
+            fout<<"785354403 1785354403"<<endl;
+            break;
+        case 12:
+            fout<<"534090811 1534090811"<<endl;
+            break;
+        case 13:
+            fout<<"716156955769 717156955769"<<endl;
+            break;
+        case 14:
+            fout<<ll(1e12-1e9)<<' '<<ll(1e12)<<endl;
+            break;
+        case 15:
+            fout<<"709665321377 710226935584"<<endl;
+            break;
+        case 16:
+            fout<<"784741704584 785232113047"<<endl;
+            break;
+        case 17:
+            fout<<"549280848351 549934074060"<<endl;
+            break;
+        case 18:
+            fout<<"157128679432 157792007888"<<endl;
+        case 19:
+            fout<<"620730430055 621101189950"<<endl;
+            break;
+        case 20:
+            fout<<"692739950722 693222271025"<<endl;
+            break;
         }
         // ==============================
         fout.close();

@@ -39,4 +39,4 @@
 
 对于 $50 \%$ 的数据，$1 \leq n \leq 100$;
 
-对于 $100 \%$ 的数据，$1 \leq n \leq 30000,~1 \leq i \leq n,~1 \leq j \leq n$。
+对于 $100 \%$ 的数据，$1 \leq n \leq 30000$，$1 \leq i \leq n$，$1 \leq j \leq n$。

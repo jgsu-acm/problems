@@ -16,7 +16,7 @@
 
 保证输入的 $t_i$ 是递增的，单位是秒；表示从小 K 第一次上班开始计时，这艘船在第 $t_i$ 秒到达海港。
 
-保证 $1 \leq n \leq {10}^5,~\sum{k_i} \leq 3*{10}^5,~1 \leq x_{i,j} \leq {10}^5,~1 \leq t_{i-1} \leq t_i \leq {10}^9$。
+保证 $1 \leq n \leq {10}^5$，$\sum{k_i} \leq 3*{10}^5$，$1 \leq x_{i,j} \leq {10}^5$，$1 \leq t_{i-1} \leq t_i \leq {10}^9$。
 
 其中 $\sum{k_i}$ 表示所有的 $k_i$ 的和。
 
@@ -77,8 +77,8 @@
 
 【数据规模】
 
-* 对于 $10 \%$ 的测试点，$n=1,~\sum k_i \leq 10,~1 \leq x_{i,j} \leq 10,~1 \leq t_i \leq 10$；
-* 对于 $20 \%$ 的测试点，$1 \leq n \leq 10,~\sum k_i \leq 100,~1 \leq x_{i,j} \leq 100,~1 \leq t_i \leq 32767$；
-* 对于 $40 \%$ 的测试点，$1 \leq n \leq 100,~\sum k_i \leq 100,~1 \leq x_{i,j} \leq 100,~1 \leq t_i \leq 86400$；
-* 对于 $70 \%$ 的测试点，$1 \leq n \leq 1000,~\sum k_i \leq 3000,~1 \leq x_{i,j} \leq 1000,~1 \leq t_i \leq {10}^9$；
-* 对于 $100 \%$ 的测试点，$1 \leq n \leq {10}^5,~\sum k_i \leq 3 \times {10}^5,~1 \leq x_{i,j} \leq {10}^5,~1 \leq t_i \leq {10}^9$；
+* 对于 $10 \%$ 的测试点，$n=1$，$\sum k_i \leq 10$，$1 \leq x_{i,j} \leq 10$，$1 \leq t_i \leq 10$；
+* 对于 $20 \%$ 的测试点，$1 \leq n \leq 10$，$\sum k_i \leq 100$，$1 \leq x_{i,j} \leq 100$，$1 \leq t_i \leq 32767$；
+* 对于 $40 \%$ 的测试点，$1 \leq n \leq 100$，$\sum k_i \leq 100$，$1 \leq x_{i,j} \leq 100$，$1 \leq t_i \leq 86400$；
+* 对于 $70 \%$ 的测试点，$1 \leq n \leq 1000$，$\sum k_i \leq 3000$，$1 \leq x_{i,j} \leq 1000$，$1 \leq t_i \leq {10}^9$；
+* 对于 $100 \%$ 的测试点，$1 \leq n \leq {10}^5$，$\sum k_i \leq 3 \times {10}^5$，$1 \leq x_{i,j} \leq {10}^5$，$1 \leq t_i \leq {10}^9$；

@@ -101,4 +101,4 @@ C 城一共有 $n$ 个路口，这些路口编号为 $1,2,\cdots,n$，有 $n-1$ 
 
 其中，“分支不超过 $3$”的含义为：每个路口至多有 $3$ 条道路与其相连。
 
-对于所有的数据，$2 \leq n \leq 5 \times {10}^4,~1 \leq m \leq n−1,~1 \leq a_i,b_i \leq n,~1 \leq l_i \leq {10}^4$。
+对于所有的数据，$2 \leq n \leq 5 \times {10}^4$，$1 \leq m \leq n−1$，$1 \leq a_i,b_i \leq n$，$1 \leq l_i \leq {10}^4$。

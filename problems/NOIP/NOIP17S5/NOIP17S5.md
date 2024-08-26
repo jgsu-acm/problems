@@ -70,10 +70,10 @@
 
 【数据规模】
 
-对于 $20 \%$ 的数据：保证输入是一棵树，$1 \leq n \leq 8,~v \leq 5 \times {10}^3$ 且所有的 $v$ 都相等。
+对于 $20 \%$ 的数据：保证输入是一棵树，$1 \leq n \leq 8$，$v \leq 5 \times {10}^3$ 且所有的 $v$ 都相等。
 
-对于 $40 \%$ 的数据：$1 \leq n \leq 8,~0 \leq m \leq {10}^3,~v \leq 5 \times {10}^3$ 且所有的 $v$ 都相等。
+对于 $40 \%$ 的数据：$1 \leq n \leq 8$，$0 \leq m \leq {10}^3$，$v \leq 5 \times {10}^3$ 且所有的 $v$ 都相等。
 
-对于 $70 \%$ 的数据：$1 \leq n \leq 8,~0 \leq m \leq {10}^3,~v \leq 5 \times {10}^3$。
+对于 $70 \%$ 的数据：$1 \leq n \leq 8$，$0 \leq m \leq {10}^3$，$v \leq 5 \times {10}^3$。
 
-对于 $100 \%$ 的数据：$1 \leq n \leq 12,~0 \leq m \leq {10}^3,~v \leq 5 \times {10}^5$。
+对于 $100 \%$ 的数据：$1 \leq n \leq 12$，$0 \leq m \leq {10}^3$，$v \leq 5 \times {10}^5$。

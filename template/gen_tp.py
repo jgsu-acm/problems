@@ -1,3 +1,4 @@
+from random import *
 from cyaron import *
 
 CASES = 10

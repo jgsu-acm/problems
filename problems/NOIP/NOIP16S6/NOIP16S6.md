@@ -34,7 +34,7 @@
 
 如果 $m=2$，则这个关卡将会满足：一定存在一种最优解，其中有一只小鸟消灭了至少 $\lfloor n/3 \rfloor$ 只小猪。
 
-保证 $1 \leq n \leq 18,~0 \leq m \leq 2,~0 < x_i,y_i < 10$，输入中的实数均保留到小数点后两位。
+保证 $1 \leq n \leq 18$，$0 \leq m \leq 2$，$0 < x_i,y_i < 10$，输入中的实数均保留到小数点后两位。
 
 上文中，符号 $\lceil c \rceil$ 和 $\lfloor c \rfloor$ 分别表示对 $c$ 向上取整和向下取整，例如：$\lceil 2.1 \rceil = \lceil 2.9 \rceil = \lceil 3.0 \rceil = \lfloor 3.0 \rfloor = \lfloor 3.1 \rfloor = \lfloor 3.9 \rfloor = 3$。
 

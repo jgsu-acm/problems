@@ -10,8 +10,4 @@
     "python.analysis.diagnosticSeverityOverrides": {
         "reportWildcardImportFromLibrary": "none"
     },
-    "python.formatting.autopep8Args": [
-        "--max-line-length",
-        "120"
-    ]
 }

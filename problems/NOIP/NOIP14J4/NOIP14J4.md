@@ -73,6 +73,6 @@
 
 【数据规模】
 
-对于 $50 \%$ 的数据，$1 \leq n \leq 12,~1 \leq m \leq 12$，矩阵中的每个元素 $1 \leq a_{ij} \leq 20$；
+对于 $50 \%$ 的数据，$1 \leq n \leq 12$，$1 \leq m \leq 12$，矩阵中的每个元素 $1 \leq a_{ij} \leq 20$；
 
-对于 $100 \%$ 的数据，$1 \leq n \leq 16,~1 \leq m \leq 16$，矩阵中的每个元素 $1 \leq a_{ij} \leq 1000,~1 \leq r \leq n,~1 \leq c \leq m$。
+对于 $100 \%$ 的数据，$1 \leq n \leq 16$，$1 \leq m \leq 16$，矩阵中的每个元素 $1 \leq a_{ij} \leq 1000$，$1 \leq r \leq n$，$1 \leq c \leq m$。

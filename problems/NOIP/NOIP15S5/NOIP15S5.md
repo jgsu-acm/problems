@@ -74,14 +74,14 @@ aab
 
 【数据规模】
 
-对于第 $1$ 组数据：$1 \leq n \leq 500,~1 \leq m \leq 50,~k=1$;
+对于第 $1$ 组数据：$1 \leq n \leq 500$，$1 \leq m \leq 50$，$k=1$;
 
-对于第 $2$ 组至第 $3$ 组数据：$1 \leq n \leq 500,~1 \leq m \leq 50,~k=2$;
+对于第 $2$ 组至第 $3$ 组数据：$1 \leq n \leq 500$，$1 \leq m \leq 50$，$k=2$;
 
-对于第 $4$ 组至第 $5$ 组数据：$1 \leq n \leq 500,~1 \leq m \leq 50,~k=m$;
+对于第 $4$ 组至第 $5$ 组数据：$1 \leq n \leq 500$，$1 \leq m \leq 50$，$k=m$;
 
-对于第 $1$ 组至第 $7$ 组数据：$1 \leq n \leq 500,~1 \leq m \leq 50,~1 \leq k \leq m$;
+对于第 $1$ 组至第 $7$ 组数据：$1 \leq n \leq 500$，$1 \leq m \leq 50$，$1 \leq k \leq m$;
 
-对于第 $1$ 组至第 $9$ 组数据：$1 \leq n \leq 1000,~1 \leq m \leq 100,~1 \leq k \leq m$;
+对于第 $1$ 组至第 $9$ 组数据：$1 \leq n \leq 1000$，$1 \leq m \leq 100$，$1 \leq k \leq m$;
 
-对于所有 $10$ 组数据：$1 \leq n \leq 1000,~1 \leq m \leq 200,~1 \leq k \leq m$。
+对于所有 $10$ 组数据：$1 \leq n \leq 1000$，$1 \leq m \leq 200$，$1 \leq k \leq m$。

@@ -26,4 +26,4 @@
 
 # 说明/提示
 
-对于 $100 \%$ 的数据，$1 \leq A \leq {10}^6,~1 \leq B \leq {10}^6,~1 \leq L \leq 100,~A/B \leq L$。
+对于 $100 \%$ 的数据，$1 \leq A \leq {10}^6$，$1 \leq B \leq {10}^6$，$1 \leq L \leq 100$，$A/B \leq L$。

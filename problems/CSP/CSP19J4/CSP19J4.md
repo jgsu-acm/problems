@@ -103,12 +103,12 @@ Yes
 
 $1 \leq u, v, a \leq n$。
 
-测试点 1~4，$1 \leq n, m \leq 1000$，$q = 3$，$L = 1$。
+测试点 14，$1 \leq n, m \leq 1000$，$q = 3$，$L = 1$。
 
-测试点 5~8，$1 \leq n, m \leq 1000$，$q = 3$，$1 \leq L \leq 10$。
+测试点 58，$1 \leq n, m \leq 1000$，$q = 3$，$1 \leq L \leq 10$。
 
-测试点 9~12，$1 \leq n, m, L \leq 1000$，$1 \leq q \leq 100$。
+测试点 912，$1 \leq n, m, L \leq 1000$，$1 \leq q \leq 100$。
 
-测试点 13~16，$1 \leq n, m, L \leq 1000$，$1 \leq q \leq {10}^5$。
+测试点 1316，$1 \leq n, m, L \leq 1000$，$1 \leq q \leq {10}^5$。
 
-测试点 17~20，$1 \leq n, m, q \leq {10}^5$，$1 \leq L \leq {10}^9$。
+测试点 1720，$1 \leq n, m, q \leq {10}^5$，$1 \leq L \leq {10}^9$。

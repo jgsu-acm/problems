@@ -6,7 +6,7 @@ $$C^m_n=\frac{n!}{m!(n-m)!}$$
 
 其中 $n!=1 \times 2 \times \cdots \times n$；特别地，定义 $0!=1$。
 
-小葱想知道如果给定 $n,m$ 和 $k$，对于所有的 $0 \leq i \leq n,~0 \leq j \leq \min(i,m)$ 有多少对 $(i,j)$ 满足 $k|C^j_i$。
+小葱想知道如果给定 $n,m$ 和 $k$，对于所有的 $0 \leq i \leq n$，$0 \leq j \leq \min(i,m)$ 有多少对 $(i,j)$ 满足 $k|C^j_i$。
 
 # 输入格式
 
@@ -16,7 +16,7 @@ $$C^m_n=\frac{n!}{m!(n-m)!}$$
 
 # 输出格式
 
-共 $t$ 行，每行一个整数代表所有的 $0 \leq i \leq n,~0 \leq j \leq \min(i,m)$ 中有多少对 $(i,j)$ 满足 $k|C^j_i$。
+共 $t$ 行，每行一个整数代表所有的 $0 \leq i \leq n$，$0 \leq j \leq \min(i,m)$ 中有多少对 $(i,j)$ 满足 $k|C^j_i$。
 
 # 输入输出样例
 

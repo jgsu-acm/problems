@@ -57,4 +57,4 @@
 
 对于 $70 \%$ 的数据，有 $1 \leq n,m \leq {10}^5$；
 
-对于 $100 \%$ 的数据，有 $1 \leq n,m \leq {10}^6,~0 \leq r_i,d_j \leq {10}^9,~1 \leq s_j \leq t_j \leq n$。
+对于 $100 \%$ 的数据，有 $1 \leq n,m \leq {10}^6$，$0 \leq r_i,d_j \leq {10}^9$，$1 \leq s_j \leq t_j \leq n$。
