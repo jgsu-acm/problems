@@ -1,5 +1,6 @@
 import os
 import shutil
+import zipfile
 from pathlib import Path
 
 from src.problem import Problem
@@ -54,4 +55,7 @@ class Generator(Problem):
         self._logger.info("打包测试数据")
         path_zip = self._path / "testcase.zip"
         path_zip.unlink(missing_ok=True)
-        os.system(f"7z a -tzip {path_zip} {PATH_TMP_FOLDER / '*.in'} {PATH_TMP_FOLDER / '*.out'}")
+        with zipfile.ZipFile(path_zip, "w") as zip_file:
+            for file in PATH_TMP_FOLDER.iterdir():
+                if file.suffix in [".in", ".out"]:
+                    zip_file.write(file, file.name)
