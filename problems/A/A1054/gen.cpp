@@ -16,47 +16,65 @@ int main(int argc, char const* argv[])
     {
         ofstream fout(to_string(_t)+".in");
         // ==============================
-        switch(_t)
+        auto f = [&]()
         {
-        case 1: case 2:
-            fout<<200<<'\n';
-            for(int o=0;o<200;o++)
+            for(int j=1;j<=5;j++)
+                for(int i=-100;i<=100;i++)
+                    fout<<i<<' '<<j<<'\n';
+        };
+        auto one = [&]() { fout<<1005<<'\n'; f(); };
+        auto two = [&]() { fout<<2010<<'\n'; f(); f(); };
+        auto b_pos = [&]()
+        {
+            fout<<rndx()<<' '<<1<<' '<<rndx()<<'\n';
+            fout<<1<<' '<<rndx()<<' '<<1<<'\n';
+            fout<<rndx()<<' '<<1<<' '<<rndx()<<'\n';
+        };
+        auto b_neg = [&]()
+        {
+            fout<<rndx()<<' '<<-1<<' '<<rndx()<<'\n';
+            fout<<-1<<' '<<rndx()<<' '<<-1<<'\n';
+            fout<<rndx()<<' '<<-1<<' '<<rndx()<<'\n';
+        };
+        auto b_rnd = [&]()
+        {
+            fout<<rndx()<<' '<<rndo()<<' '<<rndx()<<'\n';
+            fout<<rndo()<<' '<<rndx()<<' '<<rndo()<<'\n';
+            fout<<rndx()<<' '<<rndo()<<' '<<rndx()<<'\n';
+        };
+        int t;
+        if(_t<=0.3*CASES) t = 1;
+        else t = 200;
+        fout<<t<<'\n';
+        while(t--)
+        {
+            switch(_t)
             {
-                fout<<rndx()<<' '<<1<<' '<<rndx()<<'\n';
-                fout<<1<<' '<<rndx()<<' '<<1<<'\n';
-                fout<<rndx()<<' '<<1<<' '<<rndx()<<'\n';
-                fout<<1000<<'\n';
-                for(int j=1;j<=5;j++)
-                    for(int i=-100;i<=100;i++)
-                        fout<<i<<' '<<j<<'\n';
+            case 1:
+                b_pos();
+                one();
+                break;
+            case 2:
+                b_neg();
+                one();
+                break;
+            case 3:
+                b_rnd();
+                one();
+                break;
+            case 4: case 5:
+                b_pos();
+                two();
+                break;
+            case 6: case 7:
+                b_neg();
+                two();
+                break;
+            default:
+                b_rnd();
+                two();
+                break;
             }
-            break;
-        case 3: case 4:
-            fout<<200<<'\n';
-            for(int o=0;o<200;o++)
-            {
-                fout<<rndx()<<' '<<-1<<' '<<rndx()<<'\n';
-                fout<<-1<<' '<<rndx()<<' '<<-1<<'\n';
-                fout<<rndx()<<' '<<-1<<' '<<rndx()<<'\n';
-                fout<<1000<<'\n';
-                for(int j=1;j<=5;j++)
-                    for(int i=-100;i<=100;i++)
-                        fout<<i<<' '<<j<<'\n';
-            }
-            break;
-        default:
-            fout<<200<<'\n';
-            for(int o=0;o<200;o++)
-            {
-                fout<<rndx()<<' '<<rndo()<<' '<<rndx()<<'\n';
-                fout<<rndo()<<' '<<rndx()<<' '<<rndo()<<'\n';
-                fout<<rndx()<<' '<<rndo()<<' '<<rndx()<<'\n';
-                fout<<1000<<'\n';
-                for(int j=1;j<=5;j++)
-                    for(int i=-100;i<=100;i++)
-                        fout<<i<<' '<<j<<'\n';
-            }
-            break;
         }
         // ==============================
         fout.flush();
